@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Actor implements Serializable{
-    
-    //Just testing
-    
+        
     //Class instance variables
     private String name;
     private int health;
