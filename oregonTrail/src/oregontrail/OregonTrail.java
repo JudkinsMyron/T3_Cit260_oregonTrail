@@ -30,6 +30,12 @@ public class OregonTrail {
         party.setPace(3);
         ArrayList<Actor> partyMembers = new ArrayList<>();
         Actor actor = new Actor();
+        actor.setName("Ricardo");
+        actor.setHealth(4);
+        actor.setHuntingSkill(10);
+        actor.setGatheringSkill(5);
+        actor.setMoney(1000);
+        actor.setStamina(8);
         partyMembers.add(actor);
         party.setPartyMembers(partyMembers);
         party.setPartyMoney(1500);
