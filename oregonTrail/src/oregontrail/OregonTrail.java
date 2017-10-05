@@ -5,6 +5,10 @@
  */
 package oregontrail;
 
+import java.util.ArrayList;
+import model.Actor;
+import model.Party;
+
 /**
  *
  * @author Kevin's Account
@@ -15,7 +19,24 @@ public class OregonTrail {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Party party = new Party();
+        party.setDistanceTraveled(1000);
+        party.setMapPositions(15);
+        // needs Oxen class
+//        ArrayList<Oxen> oxen = new ArrayList<>();
+//        Oxen o = new Oxen();
+//        oxen.add(o);
+//        party.setOxen(oxen);
+        party.setPace(3);
+        ArrayList<Actor> partyMembers = new ArrayList<>();
+        Actor actor = new Actor();
+        partyMembers.add(actor);
+        party.setPartyMembers(partyMembers);
+        party.setPartyMoney(1500);
+        // needs wagon class
+//        Wagon wagon = new Wagon;
+//        party.setWagon(wagon);
+        System.out.println(party.toString());
     }
     
 }
