@@ -14,6 +14,9 @@ import java.util.Objects;
  */
 public class Actor implements Serializable{
     
+    
+    //Something
+    
     //Class instance variables
     private String name;
     private int health;
