@@ -42,6 +42,7 @@ public class OregonTrail {
         // needs wagon class
 //        Wagon wagon = new Wagon;
 //        party.setWagon(wagon);
+        System.out.println(actor.toString());
         System.out.println(party.toString());
     }
     
