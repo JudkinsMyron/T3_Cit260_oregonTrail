@@ -10,9 +10,9 @@ public class Party implements Serializable{
     
     private ArrayList<Actor> partyMembers;
     private int partyMoney;
-    private Wagon wagon;
+    //private Wagon wagon;
     private int mapPositions;
-    private ArrayList<Oxen> oxen;
+    //private ArrayList<Oxen> oxen;
     private int distanceTraveled;
     private int pace;
 
@@ -34,7 +34,7 @@ public class Party implements Serializable{
     public void setPartyMoney(int partyMoney) {
         this.partyMoney = partyMoney;
     }
-
+/*
     public Wagon getWagon() {
         return wagon;
     }
@@ -42,7 +42,7 @@ public class Party implements Serializable{
     public void setWagon(Wagon wagon) {
         this.wagon = wagon;
     }
-
+*/
     public int getMapPositions() {
         return mapPositions;
     }
@@ -50,7 +50,7 @@ public class Party implements Serializable{
     public void setMapPositions(int mapPositions) {
         this.mapPositions = mapPositions;
     }
-
+/*
     public ArrayList<Oxen> getOxen() {
         return oxen;
     }
@@ -58,7 +58,7 @@ public class Party implements Serializable{
     public void setOxen(ArrayList<Oxen> oxen) {
         this.oxen = oxen;
     }
-
+*/
     public int getDistanceTraveled() {
         return distanceTraveled;
     }
@@ -81,9 +81,9 @@ public class Party implements Serializable{
         int hash = 3;
         hash = 59 * hash + Objects.hashCode(this.partyMembers);
         hash = 59 * hash + this.partyMoney;
-        hash = 59 * hash + Objects.hashCode(this.wagon);
+  //      hash = 59 * hash + Objects.hashCode(this.wagon);
         hash = 59 * hash + this.mapPositions;
-        hash = 59 * hash + Objects.hashCode(this.oxen);
+    //    hash = 59 * hash + Objects.hashCode(this.oxen);
         hash = 59 * hash + this.distanceTraveled;
         hash = 59 * hash + this.pace;
         return hash;
@@ -116,17 +116,17 @@ public class Party implements Serializable{
         if (!Objects.equals(this.partyMembers, other.partyMembers)) {
             return false;
         }
-        if (!Objects.equals(this.wagon, other.wagon)) {
+      /*  if (!Objects.equals(this.wagon, other.wagon)) {
             return false;
         }
         if (!Objects.equals(this.oxen, other.oxen)) {
             return false;
-        }
+        }*/
         return true;
     }
 
     @Override
     public String toString() {
-        return "Party{" + "partyMembers=" + partyMembers + ", partyMoney=" + partyMoney + ", wagon=" + wagon + ", mapPositions=" + mapPositions + ", oxen=" + oxen + ", distanceTraveled=" + distanceTraveled + ", pace=" + pace + '}';
+        return "Party{" + "partyMembers=" + partyMembers + ", partyMoney=" + partyMoney + /*", wagon=" + wagon +*/ ", mapPositions=" + mapPositions /*+ ", oxen=" + oxen*/ + ", distanceTraveled=" + distanceTraveled + ", pace=" + pace + '}';
     }
 }
