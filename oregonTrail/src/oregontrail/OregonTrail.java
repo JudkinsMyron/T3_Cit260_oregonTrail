@@ -29,6 +29,8 @@ public class OregonTrail {
 //        party.setOxen(oxen);
         party.setPace(3);
         ArrayList<Actor> partyMembers = new ArrayList<>();
+        
+        
         Actor actor = new Actor();
         actor.setName("Ricardo");
         actor.setHealth(4);
