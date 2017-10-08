@@ -8,6 +8,8 @@ package oregontrail;
 import java.util.ArrayList;
 import model.Actor;
 import model.Party;
+import model.Player;
+import model.Supply;
 
 /**
  *
@@ -46,6 +48,20 @@ public class OregonTrail {
 //        party.setWagon(wagon);
         System.out.println(actor.toString());
         System.out.println(party.toString());
+        
+        
+        Player theBestOne = new Player();
+        theBestOne.setName("Dancho");
+        theBestOne.setParty(party);
+        System.out.println(theBestOne.toString());
+        
+        
+        Supply something = new Supply();
+        something.setType("Food");
+        something.setAmount(45);
+        System.out.println(something.toString());
+        
+        
     }
     
 }

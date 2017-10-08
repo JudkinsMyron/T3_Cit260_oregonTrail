@@ -10,9 +10,9 @@ public class Party implements Serializable{
     
     private ArrayList<Actor> partyMembers;
     private int partyMoney;
-    //private Wagon wagon;
+    private Wagon wagon;
     private int mapPositions;
-    //private ArrayList<Oxen> oxen;
+    private ArrayList<Oxen> oxen;
     private int distanceTraveled;
     private int pace;
 
@@ -81,9 +81,9 @@ public class Party implements Serializable{
         int hash = 3;
         hash = 59 * hash + Objects.hashCode(this.partyMembers);
         hash = 59 * hash + this.partyMoney;
-  //      hash = 59 * hash + Objects.hashCode(this.wagon);
+        hash = 59 * hash + Objects.hashCode(this.wagon);
         hash = 59 * hash + this.mapPositions;
-    //    hash = 59 * hash + Objects.hashCode(this.oxen);
+        hash = 59 * hash + Objects.hashCode(this.oxen);
         hash = 59 * hash + this.distanceTraveled;
         hash = 59 * hash + this.pace;
         return hash;
