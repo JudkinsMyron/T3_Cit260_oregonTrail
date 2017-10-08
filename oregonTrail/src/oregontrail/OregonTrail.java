@@ -10,6 +10,8 @@ import model.Actor;
 import model.Party;
 import model.Player;
 import model.Supply;
+import model.Oxen;
+import model.Wagon;
 
 /**
  *
@@ -61,7 +63,16 @@ public class OregonTrail {
         something.setAmount(45);
         System.out.println(something.toString());
         
+        Oxen beast = new Oxen();
+        beast.setStrength(6);
+        System.out.println(beast.toString());
         
+        Wagon large = new Wagon();
+        large.setCarryingWeight(2500);
+        large.setSizeDescription("Largest");
+        large.setIsBroken(false);
+        large.setWagonWeight(800);
+        System.out.println(large.toString());
     }
     
 }
