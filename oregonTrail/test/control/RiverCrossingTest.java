@@ -14,6 +14,9 @@ import static org.junit.Assert.*;
  */
 public class RiverCrossingTest {
     
+    public RiverCrossingTest() {
+    }
+    
     @Test
     public void successfulCrossing() {
         double oxenStrength=30;
