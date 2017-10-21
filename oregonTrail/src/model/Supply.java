@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Supply {
     
     private String type;
-    private int amount;
+    private double amount;
 
     
     public Supply() {
@@ -27,11 +27,11 @@ public class Supply {
         this.type = type;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -39,7 +39,7 @@ public class Supply {
     public int hashCode() {
         int hash = 7;
         hash = 83 * hash + Objects.hashCode(this.type);
-        hash = 83 * hash + this.amount;
+        hash = (int) (83 * hash + this.amount);
         return hash;
     }
 
