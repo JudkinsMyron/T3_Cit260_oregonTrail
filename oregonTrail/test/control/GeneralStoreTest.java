@@ -263,4 +263,135 @@ public class GeneralStoreTest {
         assertEquals(expResult, result, 0.0);
     }
     
+    @Test
+    public void purchaseSupply() {
+        String supplyType = "Food";
+        double unitPriceSupply = 7;
+        double amountToPurchase=100;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = 500.0;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyInvalidSupplyType() {
+        String supplyType = "";
+        double unitPriceSupply = 7;
+        double amountToPurchase=100;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyZeroUnitPriceSupply() {
+        String supplyType = "Food";
+        double unitPriceSupply = 0;
+        double amountToPurchase=100;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyZeroAmountToPurchase() {
+        String supplyType = "Food";
+        double unitPriceSupply = 7;
+        double amountToPurchase=0;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyZeroMoneyBalance() {
+        String supplyType = "Food";
+        double unitPriceSupply = 7;
+        double amountToPurchase=100;
+        double moneyBalance=0;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyZeroNegativeUnitPriceSupply() {
+        String supplyType = "Food";
+        double unitPriceSupply = -7;
+        double amountToPurchase=100;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyNegativeAmountToPurchase() {
+        String supplyType = "Food";
+        double unitPriceSupply = 7;
+        double amountToPurchase=-100;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyNegativeMoneyBalance() {
+        String supplyType = "Food";
+        double unitPriceSupply = 7;
+        double amountToPurchase=100;
+        double moneyBalance=-1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyZeroBoundaryUnitPriceSupply() {
+        String supplyType = "Food";
+        double unitPriceSupply = 0.001;
+        double amountToPurchase=100;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = 1199.9;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyBoundaryAmountToPurchase() {
+        String supplyType = "Food";
+        double unitPriceSupply = 7;
+        double amountToPurchase=0.001;
+        double moneyBalance=1200;
+        GeneralStore instance = new GeneralStore();
+        double expResult = 1199.993;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void purchaseSupplyBoundaryMoneyBalance() {
+        String supplyType = "Food";
+        double unitPriceSupply = 7;
+        double amountToPurchase=100;
+        double moneyBalance=-0.001;
+        GeneralStore instance = new GeneralStore();
+        double expResult = -1;
+        double result = instance.purchaseSupply(supplyType, unitPriceSupply, amountToPurchase,moneyBalance);
+        assertEquals(expResult, result, 0.0);
+    }
 }

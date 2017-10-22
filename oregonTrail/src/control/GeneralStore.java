@@ -67,4 +67,20 @@ public class GeneralStore {
     private boolean checkForBadSupplyType(String supplyType) {
         return (!supplyType.equals("Wagon Wheels") && !supplyType.equals("Food"));
     }
+    
+    public double purchaseSupply(String supplyType,double unitPriceSupply,double amountToPurchase,double moneyBalance){
+        double newMoneyBalance;
+        
+        if (checkForBadSupplyType(supplyType)) {
+            return -1;
+        }
+        
+        if (unitPriceSupply<=0 || amountToPurchase<=0 ||moneyBalance<=0){
+            return -1;
+        }else{
+            newMoneyBalance= moneyBalance-unitPriceSupply*amountToPurchase;
+        }
+        
+        return newMoneyBalance;
+    }
 }
