@@ -1,13 +1,55 @@
 package model;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+
 /**
  *
  * @author Kevin's Account
  */
-public class Party implements Serializable{
-    
+public class Party implements Serializable {
+
+    public ArrayList<Actor> getPremadeCharacters() {
+        ArrayList<Actor> partyMembers = new ArrayList<>();
+        // create actors
+        Actor myron = new Actor();
+        myron.setName("Myron");
+        Actor kevin = new Actor();
+        kevin.setName("Kevin");
+        Actor dan = new Actor();
+        dan.setName("Dan");
+        Actor ricardo = new Actor();
+        ricardo.setName("Ricardo");
+        Actor steve = new Actor();
+        steve.setName("Steve");
+        Actor mary = new Actor();
+        mary.setName("Mary");
+        Actor bethany = new Actor();
+        bethany.setName("Bethany");
+        Actor margret = new Actor();
+        margret.setName("Mary");
+        // fill party with actors
+        partyMembers.add(myron);
+        partyMembers.add(mary);
+        partyMembers.add(kevin);
+        partyMembers.add(bethany);
+        partyMembers.add(margret);
+        partyMembers.add(dan);
+        partyMembers.add(ricardo);
+        partyMembers.add(steve);
+        // set values
+        for (Actor actor : partyMembers) {
+            actor.setHuntingSkill(25);
+            actor.setGatheringSkill(15);
+            actor.setMoney(700);
+            actor.setStamina(80);
+            actor.setHealth(80);
+        }
+        
+        return partyMembers;
+    }
+
     private ArrayList<Actor> partyMembers;
     private int partyMoney;
     private Wagon wagon;
@@ -18,7 +60,7 @@ public class Party implements Serializable{
 
     public Party() {
     }
-    
+
     public ArrayList<Actor> getPartyMembers() {
         return partyMembers;
     }
@@ -74,8 +116,7 @@ public class Party implements Serializable{
     public void setPace(int pace) {
         this.pace = pace;
     }
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
