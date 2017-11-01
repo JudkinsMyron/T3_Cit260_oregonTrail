@@ -6,6 +6,9 @@
 package control;
 
 import java.util.concurrent.ThreadLocalRandom;
+import model.Supply;
+import model.SupplyType;
+import model.Wagon;
 
 /**
  *
@@ -31,7 +34,7 @@ public class RiverCrossing {
         
     }
     
-    public double calculateRiverCrossSuccess(double wagonWeight, double oxenStrength){
+    public int calculateRiverCrossSuccess(double wagonWeight, double oxenStrength){
         //int riverDepth = Math.random(0, )
         double riverDepth = getRiverDepth();
         
@@ -52,6 +55,55 @@ public class RiverCrossing {
             return 1;
         } else {
             return 0;
+        }
+    }
+    
+    public double dropSupplies(Wagon wagon, SupplyType supplyType, double amount) {
+        if (!supplyType.equals(SupplyType.WAGON_WHEELS) && !supplyType.equals(SupplyType.FOOD)) {
+            return -1;
+        }
+        
+        for (Supply supply : wagon.getSupplies()) {
+            if (supply.getType().equals(supplyType)) {
+                double currentSupplyAmount = supply.getAmount();
+                double adjustedSupplyAmount = currentSupplyAmount - amount;
+                if (adjustedSupplyAmount < 0) {
+                    return -2;
+                }
+                double result = weightCheck(wagon.getCarryingWeight(), wagon.getWagonWeight(), supplyType, adjustedSupplyAmount);
+                if (result == 1) {
+                    supply.setAmount(adjustedSupplyAmount);
+                    return adjustedSupplyAmount;
+                } else {
+                    return -3;
+                }
+            }
+        }
+        
+        return -1;
+    }
+    
+    private double weightCheck(double carryingWeight, double wagonWeight, SupplyType supplyType, double supplyAmountChange) {
+        if (supplyType != SupplyType.WAGON_WHEELS && supplyType != SupplyType.FOOD) {
+            return -1;
+        }
+        if (carryingWeight < 0) {
+            return -2;
+        }
+        if (wagonWeight < 0) {
+            return -3;
+        }
+        double weightToAdd = 0;
+        if (supplyType.equals(SupplyType.WAGON_WHEELS)) {
+            weightToAdd = 10 * supplyAmountChange;
+        }
+        if (supplyType.equals(SupplyType.FOOD)) {
+            weightToAdd = 1 * supplyAmountChange;
+        }
+        if (weightToAdd + wagonWeight > carryingWeight) {
+            return 0;
+        } else {
+            return 1;
         }
     }
 }

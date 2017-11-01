@@ -7,6 +7,7 @@ package control;
 
 import java.util.ArrayList;
 import model.Supply;
+import model.SupplyType;
 import model.Wagon;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -28,7 +29,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -48,7 +49,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -68,7 +69,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply wagonWheels = new Supply();
-        wagonWheels.setType("Wagon Wheels");
+        wagonWheels.setType(SupplyType.WAGON_WHEELS);
         wagonWheels.setAmount(2);
         supplies.add(wagonWheels);
         wagon.setSupplies(supplies);
@@ -88,7 +89,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(80);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -108,7 +109,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(0);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -128,7 +129,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1800);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(80);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -148,7 +149,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(0);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -168,7 +169,7 @@ public class GeneralStoreTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(100);
         supplies.add(food);
         wagon.setSupplies(supplies);

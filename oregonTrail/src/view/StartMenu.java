@@ -7,8 +7,11 @@ package view;
 
 import java.util.ArrayList;
 import model.Actor;
+import model.Oxen;
 import model.Party;
 import model.Player;
+import model.Supply;
+import model.SupplyType;
 import model.Wagon;
 
 /**
@@ -20,7 +23,12 @@ public class StartMenu extends MenuTools {
     public StartMenu() {
     }
 
-    public void displayBanner() {
+    public void startGame() {
+        displayBanner();
+        showOptions();
+    }
+
+    private void displayBanner() {
         System.out.println(
                 "\n********************************"
                 + "\n*                              *"
@@ -37,7 +45,7 @@ public class StartMenu extends MenuTools {
         );
     }
 
-    public void showOptions() {
+    private void showOptions() {
         boolean done = false;
         do {
             System.out.println(
@@ -108,8 +116,21 @@ public class StartMenu extends MenuTools {
         // set wagon
         chooseWagon(party);
         // buy supplies
-        buySupplies();
+        buySupplies(party);
+        // set wagon weight
+        party.getWagon().setWagonWeight(2000);
         // set oxen
+        ArrayList<Oxen> oxen = new ArrayList<>();
+        Oxen ox = new Oxen();
+        ox.setStrength(30);
+        oxen.add(ox);
+//        oxen.add(ox);
+//        oxen.add(ox);
+//        oxen.add(ox);
+        party.setOxen(oxen);
+        // this is for testing purposes only
+        RiverCrossingMenu rcm = new RiverCrossingMenu(party);
+        rcm.startRiverCrossing();
     }
 
     private void loadGame() {
@@ -208,7 +229,17 @@ public class StartMenu extends MenuTools {
         }
     }
 
-    private void buySupplies() {
-
+    private void buySupplies(Party party) {
+//        shortening for developing sakes
+        ArrayList<Supply> supplies = new ArrayList<>();
+        Supply food = new Supply();
+        food.setType(SupplyType.FOOD);
+        food.setAmount(60);
+        supplies.add(food);
+        Supply wagonWheels = new Supply();
+        wagonWheels.setType(SupplyType.WAGON_WHEELS);
+        wagonWheels.setAmount(2);
+        supplies.add(wagonWheels);
+        party.getWagon().setSupplies(supplies);
     }
 }

@@ -12,18 +12,18 @@ import java.util.Objects;
  */
 public class Supply {
     
-    private String type;
+    private SupplyType type;
     private double amount;
 
     
     public Supply() {
     }
 
-    public String getType() {
+    public SupplyType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(SupplyType type) {
         this.type = type;
     }
 

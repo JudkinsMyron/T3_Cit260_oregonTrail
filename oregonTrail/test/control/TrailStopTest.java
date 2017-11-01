@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import model.Actor;
 import model.Party;
 import model.Supply;
+import model.SupplyType;
 import model.Wagon;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -166,7 +167,7 @@ public class TrailStopTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -194,7 +195,7 @@ public class TrailStopTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -222,7 +223,7 @@ public class TrailStopTest {
         wagon.setWagonWeight(2000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -255,7 +256,7 @@ public class TrailStopTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -283,7 +284,7 @@ public class TrailStopTest {
         wagon.setWagonWeight(1000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);
@@ -311,7 +312,7 @@ public class TrailStopTest {
         wagon.setWagonWeight(2000);
         ArrayList<Supply> supplies = new ArrayList<>();
         Supply food = new Supply();
-        food.setType("Food");
+        food.setType(SupplyType.FOOD);
         food.setAmount(60);
         supplies.add(food);
         wagon.setSupplies(supplies);

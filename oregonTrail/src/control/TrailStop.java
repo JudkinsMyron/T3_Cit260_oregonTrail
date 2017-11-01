@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import model.Actor;
 import model.Party;
 import model.Supply;
+import model.SupplyType;
 
 /**
  *
@@ -113,7 +114,7 @@ public class TrailStop {
         return 0;
     }
 
-    private double weightCheck(double carryingWeight, double wagonWeight, String supplyType, double supplyAmountChange) {
+    private double weightCheck(double carryingWeight, double wagonWeight, SupplyType supplyType, double supplyAmountChange) {
         if (checkForBadSupplyType(supplyType)) {
             return -1;
         }
@@ -136,7 +137,7 @@ public class TrailStop {
             return 1;
         }
     }
-    private boolean checkForBadSupplyType(String supplyType) {
-        return (!supplyType.equals("Wagon Wheels") && !supplyType.equals("Food"));
+    private boolean checkForBadSupplyType(SupplyType supplyType) {
+        return (!supplyType.equals(SupplyType.WAGON_WHEELS) && !supplyType.equals(SupplyType.FOOD));
     }
 }

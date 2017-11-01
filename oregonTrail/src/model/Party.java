@@ -100,6 +100,14 @@ public class Party implements Serializable {
     public void setOxen(ArrayList<Oxen> oxen) {
         this.oxen = oxen;
     }
+    
+    public double calcOxenStrength() {
+        double strengthTotal = 0;
+        for (Oxen ox : this.oxen) {
+            strengthTotal += ox.getStrength();
+        }
+        return strengthTotal;
+    }
 
     public int getDistanceTraveled() {
         return distanceTraveled;
