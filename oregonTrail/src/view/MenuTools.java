@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @author Kevin's Account
  */
 public class MenuTools {
+
     public static String getMenuFeedback() {
         Scanner scanner = new Scanner(System.in);
         String input = "";
@@ -58,11 +59,21 @@ public class MenuTools {
         return input;
     }
     
-    public static double round(double value, int places) {
-    if (places < 0) throw new IllegalArgumentException();
+    public static void waitForEnterKey() {
+        System.out.println("\nPress the Enter key to continue...");
+        try {
+            System.in.read();
+        } catch (Exception e) {
+        }
+    }
 
-    BigDecimal bd = new BigDecimal(value);
-    bd = bd.setScale(places, RoundingMode.HALF_UP);
-    return bd.doubleValue();
-}
+    public static double round(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }

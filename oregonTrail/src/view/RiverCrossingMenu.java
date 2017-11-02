@@ -101,6 +101,8 @@ public class RiverCrossingMenu extends MenuTools {
                 System.out.println("Something went wrong, you shouldn't be seeing this...");
                 break;
         }
+        waitForEnterKey();
+
         return success;
     }
 
@@ -109,7 +111,7 @@ public class RiverCrossingMenu extends MenuTools {
         SupplyType supplyType = null;
         double amountToDrop = 0;
         double currentAmount = 0;
-        do {
+        while (!validInput) {
             System.out.println(
                     "\n"
                     + "\nWhat type of supplies would you like to drop?"
@@ -129,7 +131,7 @@ public class RiverCrossingMenu extends MenuTools {
                 System.out.println("That was not a valid input");
             }
 
-        } while (!validInput);
+        };
 
         for (Supply supply : _party.getWagon().getSupplies()) {
             if (supply.getType().equals(supplyType)) {
@@ -174,6 +176,6 @@ public class RiverCrossingMenu extends MenuTools {
                 System.out.println("That was not a valid input");
             }
         } while (!validInput);
-
+        waitForEnterKey();
     }
 }
