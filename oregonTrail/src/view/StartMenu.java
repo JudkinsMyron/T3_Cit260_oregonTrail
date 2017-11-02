@@ -124,10 +124,13 @@ public class StartMenu extends MenuTools {
         Oxen ox = new Oxen();
         ox.setStrength(30);
         oxen.add(ox);
-//        oxen.add(ox);
-//        oxen.add(ox);
-//        oxen.add(ox);
+        oxen.add(ox);
+        oxen.add(ox);
+        oxen.add(ox);
         party.setOxen(oxen);
+        // this is for testing purposes only
+        DailyActivity dailyActivity = new DailyActivity(party);
+        dailyActivity.showDailyOptions();
         // this is for testing purposes only
         RiverCrossingMenu rcm = new RiverCrossingMenu(party);
         rcm.startRiverCrossing();
