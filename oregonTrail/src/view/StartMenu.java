@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.RiverCrossing;
 import java.util.ArrayList;
 import model.Actor;
 import model.Oxen;
@@ -18,14 +19,24 @@ import model.Wagon;
  *
  * @author Kevin's Account
  */
-public class StartMenu extends MenuTools {
+public class StartMenu extends View {
 
     public StartMenu() {
+        super("\n-----------------------------------------"
+                    + "\n     Main Menu"
+                    + "\n-----------------------------------------"
+                    + "\n"
+                    + "\nPlease select from the following options:"
+                    + "\n"
+                    + "\nS: Start New Game"
+                    + "\nH: Help Menu"
+                    + "\nL: Load Game"
+                    + "\nQ: Quit Game");
     }
 
     public void startGame() {
         displayBanner();
-        showOptions();
+        display();
     }
 
     private void displayBanner() {
@@ -45,22 +56,8 @@ public class StartMenu extends MenuTools {
         );
     }
 
-    private void showOptions() {
-        boolean done = false;
-        do {
-            System.out.println(
-                    "\n-----------------------------------------"
-                    + "\n     Main Menu"
-                    + "\n-----------------------------------------"
-                    + "\n"
-                    + "\nPlease select from the following options:"
-                    + "\n"
-                    + "\nS: Start New Game"
-                    + "\nH: Help Menu"
-                    + "\nL: Load Game"
-                    + "\nQ: Quit Game"
-            );
-            String input = getMenuFeedback();
+    @Override
+    public boolean doAction(String input) {
             switch (input.toLowerCase()) {
                 case "s":
                     partyCreation();
@@ -71,16 +68,8 @@ public class StartMenu extends MenuTools {
                 case "h":
                     showHelpMenu();
                     break;
-                case "q":
-                    System.out.println("Thanks for playing!");
-                    done = true;
-                    break;
-                default:
-                    System.out.println("'" + input + "' is not a menu option");
-                    break;
             }
-        } while (!done);
-
+        return false;
     }
 
     private void partyCreation() {
@@ -130,10 +119,11 @@ public class StartMenu extends MenuTools {
         party.setOxen(oxen);
         // this is for testing purposes only
         DailyActivity dailyActivity = new DailyActivity(party);
-        dailyActivity.showDailyOptions();
+        dailyActivity.display();
         // this is for testing purposes only
-        RiverCrossingMenu rcm = new RiverCrossingMenu(party);
-        rcm.startRiverCrossing();
+        RiverCrossing riverCrossing = new RiverCrossing();
+        RiverCrossingMenu rcm = new RiverCrossingMenu(party, riverCrossing);
+        rcm.display();
     }
 
     private void loadGame() {
@@ -245,4 +235,5 @@ public class StartMenu extends MenuTools {
         supplies.add(wagonWheels);
         party.getWagon().setSupplies(supplies);
     }
+
 }

@@ -20,81 +20,66 @@ import model.Wagon;
  *
  * @author Myron Judkins
  */
-public class DailyActivity extends MenuTools {
+public class DailyActivity extends View {
 
     private Party _party = null;
 
     public DailyActivity(Party party) {
+        super("\n-----------------------------------------"
+                + "\n     Daily Menu"
+                + "\n-----------------------------------------"
+                + "\n"
+                + "\nPlease select from the following options:"
+                + "\n"
+                + "\nC: Continue Journey"
+                + "\nH: Help Menu"
+                + "\nP: Change Pace"
+                + "\nF: Change Food Rations"
+                + "\nR: Rest for a day"
+                + "\nS: Go Hunting"
+                + "\nG: Gather Food"
+                + "\nI: Inventory and Health"
+                + "\nM: View Map"
+                + "\nQ: Quit Game");
         _party = party;
     }
 
-    public void showDailyOptions() {
-        boolean done = false;
-        do {
-            System.out.println(
-                    "\n-----------------------------------------"
-                    + "\n     Daily Menu"
-                    + "\n-----------------------------------------"
-                    + "\n"
-                    + "\nPlease select from the following options:"
-                    + "\n"
-                    + "\nC: Continue Journey"
-                    + "\nH: Help Menu"
-                    + "\nP: Change Pace"
-                    + "\nF: Change Food Rations"
-                    + "\nR: Rest for a day"
-                    + "\nS: Go Hunting"
-                    + "\nG: Gather Food"
-                    + "\nI: Inventory and Health"
-                    + "\nM: View Map"
-                    + "\nQ: Quit Game"
-            );
-            String menuOption = getMenuFeedback();
-            if (menuOption.toLowerCase().equals("q")) {
-                done = true;
-            } else {
-                done = doAction(menuOption);
-            }
-
-        } while (!done);
-    }
-
-    private Boolean doAction(String menuOption) {
+    @Override
+    public boolean doAction(String menuOption) {
         Boolean result = false;
         switch (menuOption.toLowerCase()) {
             case "c":
-//                continueJourney();
+                continueJourney();
                 result = true;
                 setDailyHealth();
                 break;
             case "h":
-           HelpMenu helpMenu = new HelpMenu();
-                helpMenu.showHelpMenu();
+                HelpMenu helpMenu = new HelpMenu();
+                helpMenu.display();
                 break;
             case "p":
-//                changePace();
+                changePace();
                 break;
             case "f":
-//                changeFoodRation();
+                changeFoodRation();
                 break;
             case "r":
-//                restForDay();
+                restForDay();
                 setDailyHealth();
                 break;
             case "s":
-//                goHunting();
+                goHunting();
                 setDailyHealth();
                 break;
             case "g":
-//                gatherFood();
+                gatherFood();
                 setDailyHealth();
-
                 break;
             case "i":
-//                partyStatus();
+                partyStatus();
                 break;
             case "m":
-//                viewMap();
+                viewMap();
                 break;
             default:
                 System.out.println("'" + menuOption + "' is not a menu option");
@@ -113,4 +98,37 @@ public class DailyActivity extends MenuTools {
         }
         System.out.println("Your Health and food has been updated for Today");
     }
+
+    private void continueJourney() {
+        
+    }
+
+    private void changePace() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void changeFoodRation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void restForDay() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void goHunting() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void gatherFood() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void partyStatus() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void viewMap() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

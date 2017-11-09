@@ -9,65 +9,54 @@ package view;
  *
  * @author Myron's Account
  */
-public class HelpMenu extends MenuTools {
+public class HelpMenu extends View {
 
     public HelpMenu() {
+        super("\n"
+                + "\n  ****  Help Menu   ****"
+                + "\nD: See help items for daily travel"
+                + "\nT: See help items when you are at a Town or Fort"
+                + "\nH: See what items affect your health"
+                + "\nQ: Return to previous menu"
+                + "\n");
 
     }
 
-    public void showHelpMenu() {
-        boolean done = false;
-        do {
+    @Override
+    public boolean doAction(String input) {
+        if (input.toLowerCase().equals("d")) {
             System.out.println(
-                    "\n"
-                    + "\n  ****  Help Menu   ****"        
-                    + "\nD: See help items for daily travel"
-                    + "\nT: See help items when you are at a Town or Fort"
-                    + "\nH: See what items affect your health"
-                    + "\nR: Return to previous menu"
-                    + "\n"
-            );
-
-            String input = getMenuFeedback();
-            if (input.toLowerCase().equals("d")) {
-               System.out.println(
                     "\n"
                     + "\n To continue travel you move along at your set pace"
                     + "\n Your Party will move forward, and consume food, and depending"
                     + "\n on conditions you may gain or loose health."
                     + "\n From the Daily Menu you may choose to Hunt for food, or gather food"
-                    + "\n to increase food stores. You can also change your pace of travel"        
+                    + "\n to increase food stores. You can also change your pace of travel"
                     + "\n or increase or decrease your food rations. Average people consume "
                     + "\n 2.5 lbs per day. More food and less travel  makes you healthier "
                     + "\n but slower."
-                    + "\n ** PRESS R to return to your game."
-            ); }
-               else if (input.toLowerCase().equals("t")) {
-               System.out.println(
+                    + "\n ** PRESS Q to return to your game."
+            );
+        } else if (input.toLowerCase().equals("t")) {
+            System.out.println(
                     "\n"
                     + "\n When you come to a Town or Fort you have the opportunity "
                     + "\n to purchase needed supplies at the General Store or Trading Post."
                     + "\n You may also recruit new members to your Party if any have died by"
                     + "\n visiting the Hotel. You may want to recruit those with strengths"
-                    + "\n your party needs, or cash to bolster the party money."        
-                    + "\n ** PRESS R to return to your game."
-            );  }       
-             
-               else if (input.toLowerCase().equals("h")) {
-               System.out.println(
+                    + "\n your party needs, or cash to bolster the party money."
+                    + "\n ** PRESS Q to return to your game."
+            );
+        } else if (input.toLowerCase().equals("h")) {
+            System.out.println(
                     "\n"
                     + "\n People with higher Stamina recover more quickly, but require "
                     + "\n more food to stay healthy. As you eat more and travel less you"
                     + "\n also gain health. Long days and short (or No) rations will deplete"
                     + "\n Your health, when you reach zero you are dead. Health is 0 to 100"
-                    + "\n ** PRESS R to return to your game."
-            );  }   
-             else if (input.toLowerCase().equals("r")) {
-                done = true;
-            } else {
-                System.out.println("That was not a valid input");
-            }
-
-        } while (!done);
+                    + "\n ** PRESS Q to return to your game."
+            );
+        }
+        return false;
     }
 }

@@ -14,22 +14,13 @@ import model.SupplyType;
  *
  * @author Kevin's Account
  */
-public class RiverCrossingMenu extends MenuTools {
+public class RiverCrossingMenu extends View {
 
     private Party _party = null;
+    private RiverCrossing _riverCrossing = null;
 
-    RiverCrossingMenu(Party party) {
-        _party = party;
-    }
-
-    public void startRiverCrossing() {
-        displayBanner();
-        showOptions();
-    }
-
-    private void displayBanner() {
-        System.out.println(
-                "\n********************************"
+    RiverCrossingMenu(Party party, RiverCrossing riverCrossing) {
+        super("\n********************************"
                 + "\n*                              *"
                 + "\n*     As you walk along,       *"
                 + "\n*     you hear the sound       *"
@@ -38,43 +29,39 @@ public class RiverCrossingMenu extends MenuTools {
                 + "\n*     a river.                 *"
                 + "\n*                              *"
                 + "\n********************************"
-        );
+                + "\n"
+                + "\n"
+                + "\n"
+                + "\n-----------------------------------------"
+                + "\n     River Crossing"
+                + "\n-----------------------------------------"
+                + "\n"
+                + "\nThe river right now is " + round(riverCrossing.getRiverDepth(), 1) + " feet deep."
+                + "\nWhat do you do?"
+                + "\n"
+                + "\nC: Cross the River"
+                + "\nD: Drop supplies"
+                + "\nG: Go back and wait for the river to change");
+        _party = party;
+        _riverCrossing = riverCrossing;
     }
 
-    private void showOptions() {
+    @Override
+    public boolean doAction(String input) {
         boolean done = false;
-        RiverCrossing riverCrossing = new RiverCrossing();
-
-        do {
-            System.out.println(
-                    "\n-----------------------------------------"
-                    + "\n     River Crossing"
-                    + "\n-----------------------------------------"
-                    + "\n"
-                    + "\nThe river right now is " + round(riverCrossing.getRiverDepth(), 2) + " feet deep."
-                    + "\nWhat do you do?"
-                    + "\n"
-                    + "\nC: Cross the River"
-                    + "\nD: Drop supplies"
-                    + "\nG: Go back and wait for the river to change"
-            );
-            String input = getMenuFeedback();
-            switch (input.toLowerCase()) {
-                case "c":
-                    done = attemptToCrossTheRiver(riverCrossing);
-                    break;
-                case "d":
-                    dropSupplies(riverCrossing);
-                    break;
-                case "g":
-                    System.out.println("You go back to camp and wait");
-                    riverCrossing.setRiverDepth(0);
-                    break;
-                default:
-                    System.out.println("'" + input + "' is not a menu option");
-                    break;
-            }
-        } while (!done);
+        switch (input.toLowerCase()) {
+            case "c":
+                done = attemptToCrossTheRiver(_riverCrossing);
+                break;
+            case "d":
+                dropSupplies(_riverCrossing);
+                break;
+            case "g":
+                System.out.println("You go back to camp and wait");
+                _riverCrossing.setRiverDepth(0);
+                break;
+        }
+        return done;
     }
 
     private boolean attemptToCrossTheRiver(RiverCrossing riverCrossing) {
