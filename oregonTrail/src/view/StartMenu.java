@@ -9,6 +9,7 @@ import control.RiverCrossing;
 import java.util.ArrayList;
 import model.Actor;
 import model.Oxen;
+import model.PaceSpeed;
 import model.Party;
 import model.Player;
 import model.Supply;
@@ -117,6 +118,9 @@ public class StartMenu extends View {
         oxen.add(ox);
         oxen.add(ox);
         party.setOxen(oxen);
+        
+        //set pace
+        party.setPace(PaceSpeed.MEDIUM);
         // this is for testing purposes only
         DailyActivity dailyActivity = new DailyActivity(party);
         dailyActivity.display();

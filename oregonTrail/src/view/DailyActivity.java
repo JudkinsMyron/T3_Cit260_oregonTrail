@@ -104,7 +104,8 @@ public class DailyActivity extends View {
     }
 
     private void changePace() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TeamPaceMenu tpm = new TeamPaceMenu(_party);
+        tpm.display();
     }
 
     private void changeFoodRation() {

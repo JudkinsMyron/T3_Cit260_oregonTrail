@@ -56,7 +56,7 @@ public class Party implements Serializable {
     private int mapPositions;
     private ArrayList<Oxen> oxen;
     private int distanceTraveled;
-    private int pace;
+    private PaceSpeed pace;
 
     public Party() {
     }
@@ -117,12 +117,12 @@ public class Party implements Serializable {
         this.distanceTraveled = distanceTraveled;
     }
 
-    public int getPace() {
+    public PaceSpeed getPace() {
         return pace;
     }
 
-    public void setPace(int pace) {
-        this.pace = pace;
+    public void setPace(PaceSpeed speed) {
+        this.pace = speed;
     }
 
     @Override
@@ -134,7 +134,7 @@ public class Party implements Serializable {
         hash = 59 * hash + this.mapPositions;
         hash = 59 * hash + Objects.hashCode(this.oxen);
         hash = 59 * hash + this.distanceTraveled;
-        hash = 59 * hash + this.pace;
+        hash = 59 * hash + this.pace.getValue();
         return hash;
     }
 
