@@ -128,6 +128,10 @@ public class StartMenu extends View {
         RiverCrossing riverCrossing = new RiverCrossing();
         RiverCrossingMenu rcm = new RiverCrossingMenu(party, riverCrossing);
         rcm.display();
+        // Visit the Fort
+        FortMenu fortMenu = new FortMenu(party);
+        fortMenu.display();
+        dailyActivity.display();
     }
 
     private void loadGame() {
