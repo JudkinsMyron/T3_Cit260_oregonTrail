@@ -5,13 +5,18 @@
  */
 package view;
 
+import control.GamePlay;
+import model.Party;
+
 /**
  *
  * @author Myron's Account
  */
 public class HelpMenu extends View {
 
-    public HelpMenu() {
+    private Party _party = null;
+
+    public HelpMenu(Party party) {
         super("\n"
                 + "\n  ****  Help Menu   ****"
                 + "\nD: See help items for daily travel"
@@ -19,11 +24,13 @@ public class HelpMenu extends View {
                 + "\nH: See what items affect your health"
                 + "\nQ: Return to previous menu"
                 + "\n");
+        _party = party;
 
     }
 
     @Override
     public boolean doAction(String input) {
+        GamePlay gamePlay = new GamePlay();
         if (input.toLowerCase().equals("d")) {
             System.out.println(
                     "\n"
@@ -54,6 +61,7 @@ public class HelpMenu extends View {
                     + "\n more food to stay healthy. As you eat more and travel less you"
                     + "\n also gain health. Long days and short (or No) rations will deplete"
                     + "\n Your health, when you reach zero you are dead. Health is 0 to 100"
+                    + "\n Right now your average party health is " + gamePlay.calculateAverageStrength(_party)
                     + "\n ** PRESS Q to return to your game."
             );
         }

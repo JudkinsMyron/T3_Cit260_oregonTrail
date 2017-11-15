@@ -6,6 +6,8 @@
 package control;
 
 import java.io.Serializable;
+import model.Actor;
+import model.Party;
 /*import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,6 +54,20 @@ public class GamePlay implements Serializable {
         actorHealth = newerHealth ;
 
         return actorHealth;
+    }
+    
+    public double calculateAverageStrength(Party party) {
+        double totalHealth = 0;
+        
+        for (Actor actor : party.getPartyMembers()) {
+            totalHealth += actor.getHealth();
+        }
+        
+        if (totalHealth < 0) {
+            return -1;
+        }
+        
+        return totalHealth/party.getPartyMembers().size();
     }
 
     

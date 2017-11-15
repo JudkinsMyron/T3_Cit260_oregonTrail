@@ -54,7 +54,7 @@ public class DailyActivity extends View {
                 setDailyHealth();
                 break;
             case "h":
-                HelpMenu helpMenu = new HelpMenu();
+                HelpMenu helpMenu = new HelpMenu(_party);
                 helpMenu.display();
                 break;
             case "p":

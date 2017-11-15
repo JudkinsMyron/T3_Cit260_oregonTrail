@@ -5,6 +5,9 @@
  */
 package control;
 
+import java.util.ArrayList;
+import model.Actor;
+import model.Party;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -184,7 +187,143 @@ public class GamePlayTest {
         double result = instance.calculateDailyHealth(actorHealth, actorStamina, dailyFoodEaten, dailyMilesTraveled);
         assertEquals(expResult, result, 0.0);
     }
+
+    @Test
+    public void testCalculateAverageStrengthEighty() {
+        System.out.println("calculateAverageStrength");
+        Party party = new Party();
+        // create main character
+        Actor mainCharacter = new Actor();
+        mainCharacter.setGatheringSkill(15);
+        mainCharacter.setHealth(80);
+        mainCharacter.setHuntingSkill(25);
+        mainCharacter.setMoney(700);
+        mainCharacter.setStamina(80);
+        // create party
+        ArrayList<Actor> starterCharacters = new ArrayList<>();
+        starterCharacters.add(mainCharacter);
+        starterCharacters.add(party.getPremadeCharacters().get(0));
+        starterCharacters.add(party.getPremadeCharacters().get(1));
+        starterCharacters.add(party.getPremadeCharacters().get(2));
+        for (Actor actor : starterCharacters) {
+            actor.setHealth(80);
+        }
+        party.setPartyMembers(starterCharacters);
+        GamePlay instance = new GamePlay();
+        double expResult = 80.0;
+        double result = instance.calculateAverageStrength(party);
+        assertEquals(expResult, result, 0.0);
+    }
     
+    @Test
+    public void testCalculateAverageStrengthVariable() {
+        System.out.println("calculateAverageStrength");
+        Party party = new Party();
+        // create main character
+        Actor mainCharacter = new Actor();
+        mainCharacter.setGatheringSkill(15);
+        mainCharacter.setHealth(80);
+        mainCharacter.setHuntingSkill(25);
+        mainCharacter.setMoney(700);
+        mainCharacter.setStamina(80);
+        // create party
+        ArrayList<Actor> starterCharacters = new ArrayList<>();
+        starterCharacters.add(mainCharacter);
+        starterCharacters.add(party.getPremadeCharacters().get(0));
+        starterCharacters.add(party.getPremadeCharacters().get(1));
+        starterCharacters.add(party.getPremadeCharacters().get(2));
+        for (int i = 0; i < starterCharacters.size(); i++) {
+            int j = i + 10;
+            starterCharacters.get(i).setHealth(j);
+        }
+        party.setPartyMembers(starterCharacters);
+        GamePlay instance = new GamePlay();
+        double expResult = 11.5;
+        double result = instance.calculateAverageStrength(party);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void testCalculateAverageStrengthNegativeHealth() {
+        System.out.println("calculateAverageStrength");
+        Party party = new Party();
+        // create main character
+        Actor mainCharacter = new Actor();
+        mainCharacter.setGatheringSkill(15);
+        mainCharacter.setHealth(80);
+        mainCharacter.setHuntingSkill(25);
+        mainCharacter.setMoney(700);
+        mainCharacter.setStamina(80);
+        // create party
+        ArrayList<Actor> starterCharacters = new ArrayList<>();
+        starterCharacters.add(mainCharacter);
+        starterCharacters.add(party.getPremadeCharacters().get(0));
+        starterCharacters.add(party.getPremadeCharacters().get(1));
+        starterCharacters.add(party.getPremadeCharacters().get(2));
+        for (Actor actor : starterCharacters) {
+            actor.setHealth(-10);
+        }
+        party.setPartyMembers(starterCharacters);
+        GamePlay instance = new GamePlay();
+        double expResult = -1.0;
+        double result = instance.calculateAverageStrength(party);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    
+    @Test
+    public void testCalculateAverageStrengthZero() {
+        System.out.println("calculateAverageStrength");
+        Party party = new Party();
+        // create main character
+        Actor mainCharacter = new Actor();
+        mainCharacter.setGatheringSkill(15);
+        mainCharacter.setHealth(80);
+        mainCharacter.setHuntingSkill(25);
+        mainCharacter.setMoney(700);
+        mainCharacter.setStamina(80);
+        // create party
+        ArrayList<Actor> starterCharacters = new ArrayList<>();
+        starterCharacters.add(mainCharacter);
+        starterCharacters.add(party.getPremadeCharacters().get(0));
+        starterCharacters.add(party.getPremadeCharacters().get(1));
+        starterCharacters.add(party.getPremadeCharacters().get(2));
+        for (Actor actor : starterCharacters) {
+            actor.setHealth(0);
+        }
+        party.setPartyMembers(starterCharacters);
+        GamePlay instance = new GamePlay();
+        double expResult = 0.0;
+        double result = instance.calculateAverageStrength(party);
+        assertEquals(expResult, result, 0.0);
+    }
+    
+    @Test
+    public void testCalculateAverageStrengthThousands() {
+        System.out.println("calculateAverageStrength");
+        Party party = new Party();
+        // create main character
+        Actor mainCharacter = new Actor();
+        mainCharacter.setGatheringSkill(15);
+        mainCharacter.setHealth(80);
+        mainCharacter.setHuntingSkill(25);
+        mainCharacter.setMoney(700);
+        mainCharacter.setStamina(80);
+        // create party
+        ArrayList<Actor> starterCharacters = new ArrayList<>();
+        starterCharacters.add(mainCharacter);
+        starterCharacters.add(party.getPremadeCharacters().get(0));
+        starterCharacters.add(party.getPremadeCharacters().get(1));
+        starterCharacters.add(party.getPremadeCharacters().get(2));
+        for (Actor actor : starterCharacters) {
+            actor.setHealth(2000);
+        }
+        party.setPartyMembers(starterCharacters);
+        GamePlay instance = new GamePlay();
+        double expResult = 2000.0;
+        double result = instance.calculateAverageStrength(party);
+        assertEquals(expResult, result, 0.0);
+    }
     
     
     
