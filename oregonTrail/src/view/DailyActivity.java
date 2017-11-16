@@ -6,6 +6,7 @@
 package view;
 
 import control.GamePlay;
+import control.MapControl;
 import java.util.ArrayList;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import model.Actor;
@@ -15,6 +16,7 @@ import model.Player;
 import model.Supply;
 import model.SupplyType;
 import model.Wagon;
+import static view.MenuTools.waitForEnterKey;
 
 /**
  *
@@ -100,7 +102,7 @@ public class DailyActivity extends View {
     }
 
     private void continueJourney() {
-        
+    _party.setMapPositions(_party.getMapPositions() + 1);
     }
 
     private void changePace() {
@@ -129,7 +131,10 @@ public class DailyActivity extends View {
     }
 
     private void viewMap() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       MapControl mapControl = new MapControl();
+        
+        mapControl.printMap(_party);
+        waitForEnterKey();
     }
 
 }
