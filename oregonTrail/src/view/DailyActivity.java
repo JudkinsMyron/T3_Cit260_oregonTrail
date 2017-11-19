@@ -49,11 +49,12 @@ public class DailyActivity extends View {
     @Override
     public boolean doAction(String menuOption) {
         Boolean result = false;
+        GamePlay gamePlay = new GamePlay(); 
         switch (menuOption.toLowerCase()) {
             case "c":
                 continueJourney();
                 result = true;
-                setDailyHealth();
+                gamePlay.setDailyHealth(_party);
                 break;
             case "h":
                 HelpMenu helpMenu = new HelpMenu(_party);
@@ -67,15 +68,15 @@ public class DailyActivity extends View {
                 break;
             case "r":
                 restForDay();
-                setDailyHealth();
+                gamePlay.setDailyHealth(_party);
                 break;
             case "s":
                 goHunting();
-                setDailyHealth();
+                gamePlay.setDailyHealth(_party);
                 break;
             case "g":
                 gatherFood();
-                setDailyHealth();
+                gamePlay.setDailyHealth(_party);
                 break;
             case "i":
                 partyStatus();
@@ -91,15 +92,7 @@ public class DailyActivity extends View {
         return result;
     }
 
-    private void setDailyHealth() {
-        GamePlay gamePlay = new GamePlay();
-        for (int i = 0; i < _party.getPartyMembers().size(); i++) {
-            Actor actor = _party.getPartyMembers().get(i);
-            actor.setHealth((int) gamePlay.calculateDailyHealth(actor.getHealth(), actor.getStamina(), 2.5, 10));
-
-        }
-        System.out.println("Your Health and food has been updated for Today");
-    }
+    
 
     private void continueJourney() {
     _party.setMapPositions(_party.getMapPositions() + 1);
