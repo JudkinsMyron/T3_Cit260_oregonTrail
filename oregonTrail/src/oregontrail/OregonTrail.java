@@ -24,10 +24,16 @@ public class OregonTrail {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         StartMenu startMenu = new StartMenu();
-        startMenu.startGame();
+        try {
+            startMenu.startGame();
+        } catch (Throwable te) {
+            System.out.println(te.getMessage());
+            te.printStackTrace();
+            startMenu.startGame();
+        }
 
     }
-        
+
 }

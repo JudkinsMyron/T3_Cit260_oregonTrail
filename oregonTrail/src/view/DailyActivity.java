@@ -16,7 +16,7 @@ import model.Player;
 import model.Supply;
 import model.SupplyType;
 import model.Wagon;
-import static view.MenuTools.waitForEnterKey;
+
 
 /**
  *
@@ -49,7 +49,7 @@ public class DailyActivity extends View {
     @Override
     public boolean doAction(String menuOption) {
         Boolean result = false;
-        GamePlay gamePlay = new GamePlay(); 
+        GamePlay gamePlay = new GamePlay();
         switch (menuOption.toLowerCase()) {
             case "c":
                 continueJourney();
@@ -92,10 +92,8 @@ public class DailyActivity extends View {
         return result;
     }
 
-    
-
     private void continueJourney() {
-    _party.setMapPositions(_party.getMapPositions() + 1);
+        _party.setMapPositions(_party.getMapPositions() + 1);
     }
 
     private void changePace() {
@@ -124,8 +122,8 @@ public class DailyActivity extends View {
     }
 
     private void viewMap() {
-       MapControl mapControl = new MapControl();
-        
+        MapControl mapControl = new MapControl();
+
         mapControl.printMap(_party);
         waitForEnterKey();
     }

@@ -6,6 +6,7 @@
 package view;
 
 import control.RiverCrossing;
+import exceptions.RiverCrossingException;
 import model.Party;
 import model.Supply;
 import model.SupplyType;
@@ -65,18 +66,15 @@ public class RiverCrossingMenu extends View {
     }
 
     private boolean attemptToCrossTheRiver(RiverCrossing riverCrossing) {
-        int result = riverCrossing.calculateRiverCrossSuccess(_party.getWagon().getWagonWeight(), _party.calcOxenStrength());
+        int result = 2;
+        try {
+            result = riverCrossing.calculateRiverCrossSuccess(_party.getWagon().getWagonWeight(), _party.calcOxenStrength());
+        } catch (RiverCrossingException rce) {
+            System.out.println(rce.getMessage());
+        }
         boolean success = false;
         switch (result) {
-            case -1:
-                System.out.println("Wagon weight cannot be negative");
-                break;
-            case -2:
-                System.out.println("Oxen strength cannot be negative");
-                break;
-            case -3:
-                System.out.println("River depth cannot be negative");
-                break;
+
             case 0:
                 System.out.println("You didn't cross the river successfully!");
                 break;
@@ -84,9 +82,7 @@ public class RiverCrossingMenu extends View {
                 System.out.println("You made it across the river safely");
                 success = true;
                 break;
-            default:
-                System.out.println("Something went wrong, you shouldn't be seeing this...");
-                break;
+
         }
         waitForEnterKey();
 
@@ -126,43 +122,31 @@ public class RiverCrossingMenu extends View {
             }
         }
 
-        do {
-            System.out.println(
-                    "\n"
-                    + "\nYou currently have " + currentAmount + " " + supplyType
-                    + "\n"
-                    + "\nHow much would you like to drop? (enter '0' to return to menu)"
-            );
-            String input = getPlayerFeedback();
+        System.out.println(
+                "\n"
+                + "\nYou currently have " + currentAmount + " " + supplyType
+                + "\n"
+                + "\nHow much would you like to drop? (enter '0' to return to menu)"
+        );
+        amountToDrop = getIntFromString();
 
-            try {
-                amountToDrop = Integer.parseInt(input);
-                validInput = true;
-            } catch (Exception e) {
-                validInput = false;
-            }
-            if (validInput) {
-                double result = riverCrossing.dropSupplies(_party.getWagon(), supplyType, amountToDrop);
-                int intChecker = (int) result;
-                switch (intChecker) {
-                    case -1:
-                        System.out.println("No supply of that type found");
-                        break;
-                    case -2:
-                        System.out.println("You don't have that much to drop");
-                        break;
-                    case -3:
-                        System.out.println("You can't drop a negative amount of supplies, nice try");
-                        break;
-                    default:
-                        System.out.println("\n" + "\nYou dropped " + amountToDrop + " of "
-                                + supplyType + " and now have " + result + " remaining");
-                        break;
-                }
-            } else {
-                System.out.println("That was not a valid input");
-            }
-        } while (!validInput);
+        double result = riverCrossing.dropSupplies(_party.getWagon(), supplyType, amountToDrop);
+        int intChecker = (int) result;
+        switch (intChecker) {
+            case -1:
+                System.out.println("No supply of that type found");
+                break;
+            case -2:
+                System.out.println("You don't have that much to drop");
+                break;
+            case -3:
+                System.out.println("You can't drop a negative amount of supplies, nice try");
+                break;
+            default:
+                System.out.println("\n" + "\nYou dropped " + amountToDrop + " of "
+                        + supplyType + " and now have " + result + " remaining");
+                break;
+        }
         waitForEnterKey();
     }
 }

@@ -8,7 +8,8 @@ package control;
 import java.io.Serializable;
 import model.Actor;
 import model.Party;
-import static view.MenuTools.waitForEnterKey;
+import static view.View.waitForEnterKey;
+
 
 /*import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -74,13 +75,16 @@ public class GamePlay implements Serializable {
     public void setDailyHealth(Party party) {
         GamePlay gamePlay = new GamePlay();
         double averageHealth = 0 ;
+       int partyMemberCounter = 0 ;
         System.out.println("Your Health and food has been updated for Today");
         for (Actor actor : party.getPartyMembers()) {
             actor.setHealth((int) gamePlay.calculateDailyHealth(actor.getHealth(), actor.getStamina(), 2.5, 8));
             System.out.println("Health for " + actor.getName() + " is " + actor.getHealth());
            averageHealth = averageHealth +  actor.getHealth();
+           if (actor.getHealth() > 0 )
+               partyMemberCounter++ ;
         }
-        System.out.println("The Average Health for party members is " + averageHealth / 4 );
+        System.out.println("The Average Health for party members is " + averageHealth / partyMemberCounter );
         waitForEnterKey();
     }
 

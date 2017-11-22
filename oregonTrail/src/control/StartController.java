@@ -16,9 +16,10 @@ import model.SupplyType;
 import model.Wagon;
 import view.DailyActivity;
 import view.FortMenu;
-import static view.MenuTools.getMenuFeedback;
-import static view.MenuTools.getPlayerFeedback;
+
 import view.RiverCrossingMenu;
+import static view.View.getMenuFeedback;
+import static view.View.getPlayerFeedback;
 
 /**
  *
