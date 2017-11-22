@@ -7,6 +7,7 @@ package view;
 
 import control.GamePlay;
 import control.MapControl;
+import control.TrailStop;
 import java.util.ArrayList;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import model.Actor;
@@ -110,11 +111,13 @@ public class DailyActivity extends View {
     }
 
     private void goHunting() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TrailStop trailStop = new TrailStop();
+        trailStop.goHunting(_party);
     }
 
     private void gatherFood() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TrailStop trailStop = new TrailStop();
+        trailStop.lookForPlants(_party);
     }
 
     private void partyStatus() {

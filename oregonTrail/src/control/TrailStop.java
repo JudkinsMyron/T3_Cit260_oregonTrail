@@ -5,20 +5,22 @@
  */
 package control;
 
+import exceptions.TrailStopException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import model.Actor;
 import model.Party;
 import model.Supply;
 import model.SupplyType;
+import view.View;
 
 /**
  *
  * @author Kevin's Account
  */
 public class TrailStop {
-    
-    public double calcHuntingSuccess(Party party) {
+
+    public boolean calcHuntingSuccess(Party party) throws TrailStopException {
         ArrayList<Actor> partyMembers = party.getPartyMembers();
         double totalSkill = 0;
         for (Actor actor : partyMembers) {
@@ -27,18 +29,14 @@ public class TrailStop {
             }
         }
         if (totalSkill < 0) {
-            return -1;
+            throw new TrailStopException("The hunting skill was below 0");
         }
         double random = ThreadLocalRandom.current().nextDouble(0, 100);
         boolean success = (totalSkill * random > 50);
-        if (success) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return success;
     }
-    
-    public double calcGatheringSuccess(Party party) {
+
+    public boolean calcGatheringSuccess(Party party) throws TrailStopException {
         ArrayList<Actor> partyMembers = party.getPartyMembers();
         double totalSkill = 0;
         for (Actor actor : partyMembers) {
@@ -47,96 +45,89 @@ public class TrailStop {
             }
         }
         if (totalSkill < 0) {
-            return -1;
+            throw new TrailStopException("The gathering skill was below 0");
         }
         double random = ThreadLocalRandom.current().nextDouble(1, 100);
         boolean success = (totalSkill * random > 30);
+        return success;
+    }
+
+    public void goHunting(Party party) {
+        boolean success = false;
+        try {
+            success = calcHuntingSuccess(party);
+        } catch (TrailStopException tse) {
+            System.out.println(tse.getMessage());
+        }
+
         if (success) {
-            return 1;
-        } else {
-            return 0;
+            adjustSuppliesFromSuccess(party);
         }
     }
 
-    public double goHunting(Party party) {
-        double success = calcHuntingSuccess(party);
-        if (success == -1) {
-            System.out.println("Hunting skill cannot be negative");
-        } else if (success == 0) {
-            return 0;
-        } else if ( success == 1) {
-            double foodToAdd = ThreadLocalRandom.current().nextDouble(1, 20);
-            for (Supply supply : party.getWagon().getSupplies()) {
-                if (supply.getType().equals("Food")) {
-                    double currentSupplyAmount = supply.getAmount();
-                    double adjustedSupplyAmount = currentSupplyAmount + foodToAdd;
-                    double result = weightCheck(party.getWagon().getCarryingWeight(), 
-                            party.getWagon().getWagonWeight(), 
-                            supply.getType(), 
+    private void adjustSuppliesFromSuccess(Party party) {
+        double foodToAdd = ThreadLocalRandom.current().nextDouble(1, 20);
+        for (Supply supply : party.getWagon().getSupplies()) {
+            if (supply.getType() == SupplyType.FOOD) {
+                double currentSupplyAmount = supply.getAmount();
+                double adjustedSupplyAmount = currentSupplyAmount + foodToAdd;
+                boolean weightCheckResult = false;
+                try {
+                    weightCheckResult = weightCheck(party.getWagon().getCarryingWeight(),
+                            party.getWagon().getWagonWeight(),
+                            supply.getType(),
                             foodToAdd);
-                    if (result == 1) {
-                        supply.setAmount(adjustedSupplyAmount);
-                        return 1;
-                    } else {
-                        return -1;
-                    }
+
+                } catch (TrailStopException tse) {
+                    System.out.println(tse.getMessage());
+                }
+
+                if (weightCheckResult) {
+                    supply.setAmount(adjustedSupplyAmount);
+                    System.out.println("You were successful! You now have " + supply.getAmount() + " " + supply.getType());
+                    View.waitForEnterKey();
+                } else {
+                    System.out.println("You found food, but were unable to store it anywhere");
+                    View.waitForEnterKey();
                 }
             }
         }
-        return 0;
-    }
-    
-    public double lookForPlants(Party party) {
-        double success = calcGatheringSuccess(party);
-        if (success == -1) {
-            System.out.println("Gathering skill cannot be negative");
-        } else if (success == 0) {
-            return 0;
-        } else if ( success == 1) {
-            double foodToAdd = ThreadLocalRandom.current().nextDouble(1, 10);
-            for (Supply supply : party.getWagon().getSupplies()) {
-                if (supply.getType().equals("Food")) {
-                    double currentSupplyAmount = supply.getAmount();
-                    double adjustedSupplyAmount = currentSupplyAmount + foodToAdd;
-                    double result = weightCheck(party.getWagon().getCarryingWeight(), 
-                            party.getWagon().getWagonWeight(), 
-                            supply.getType(), 
-                            foodToAdd);
-                    if (result == 1) {
-                        supply.setAmount(adjustedSupplyAmount);
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-                }
-            }
-        }
-        return 0;
     }
 
-    private double weightCheck(double carryingWeight, double wagonWeight, SupplyType supplyType, double supplyAmountChange) {
+    public boolean lookForPlants(Party party) {
+        boolean success = false;
+        try {
+            success = calcGatheringSuccess(party);
+        } catch (TrailStopException tse) {
+            System.out.println(tse.getMessage());
+        }
+
+        if (success) {
+            adjustSuppliesFromSuccess(party);
+        }
+        return success;
+    }
+
+    private boolean weightCheck(double carryingWeight, double wagonWeight, SupplyType supplyType, double supplyAmountChange) throws TrailStopException {
         if (checkForBadSupplyType(supplyType)) {
-            return -1;
+            throw new TrailStopException("Bad supply type");
         }
         if (carryingWeight < 0) {
-            return -2;
+            throw new TrailStopException("Carrying weight cannot be negative");
         }
         if (wagonWeight < 0) {
-            return -3;
+            throw new TrailStopException("Wagon weight cannot be negative");
         }
         double weightToAdd = 0;
-        if (supplyType.equals("Wagon Wheels")) {
+        if (supplyType == SupplyType.WAGON_WHEELS) {
             weightToAdd = 10 * supplyAmountChange;
         }
-        if (supplyType.equals("Food")) {
+        if (supplyType == SupplyType.FOOD) {
             weightToAdd = 1 * supplyAmountChange;
         }
-        if (weightToAdd + wagonWeight > carryingWeight) {
-            return 0;
-        } else {
-            return 1;
-        }
+        return (weightToAdd + wagonWeight < carryingWeight);
     }
+
     private boolean checkForBadSupplyType(SupplyType supplyType) {
         return (!supplyType.equals(SupplyType.WAGON_WHEELS) && !supplyType.equals(SupplyType.FOOD));
     }
