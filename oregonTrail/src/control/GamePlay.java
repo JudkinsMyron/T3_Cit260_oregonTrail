@@ -5,6 +5,7 @@
  */
 package control;
 
+import exceptions.DailyHealthException;
 import java.io.Serializable;
 import model.Actor;
 import model.Party;
@@ -27,23 +28,23 @@ public class GamePlay implements Serializable {
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    private Long id;
 // public double calculateDailyHealth(double actorHealth, double actorStamina, double dailyFoodEaten, double dailyMilesTraveled){
-    public double calculateDailyHealth(double actorHealth, double actorStamina, double dailyFoodEaten, double dailyMilesTraveled) {
+    public double calculateDailyHealth(double actorHealth, double actorStamina, double dailyFoodEaten, double dailyMilesTraveled) throws DailyHealthException {
         //I have yet to be sure where to get these variables
 
         if (actorStamina <= 0 || actorStamina > 100) {
-            return -1;
+           throw new DailyHealthException("Actor Stamina is out of range");
         }
         if (actorHealth <= 0 || actorHealth > 100) {
-            return -1;
+            throw new DailyHealthException("Actor Health is out of range");
         }
         if (dailyFoodEaten >= 10) {
-            return -1;
+            throw new DailyHealthException("Food Eaten today is too high");
         }
         if (dailyFoodEaten < 0) {
-            return -1;
+            throw new DailyHealthException("Food Eaten today is less than zero");
         }
         if (dailyMilesTraveled < 0 || dailyMilesTraveled > 25) {
-            return -1;
+            throw new DailyHealthException("Miles traveled is out of range");
         }
         double newHealth = (actorHealth + (((dailyFoodEaten * 5) / (dailyMilesTraveled + 1)) - (dailyMilesTraveled * (actorStamina / 220))));
         double newerHealth = Math.round(newHealth);
@@ -72,7 +73,7 @@ public class GamePlay implements Serializable {
         return totalHealth / party.getPartyMembers().size();
     }
 
-    public void setDailyHealth(Party party) {
+    public void setDailyHealth(Party party) throws DailyHealthException {
         GamePlay gamePlay = new GamePlay();
         double averageHealth = 0 ;
        int partyMemberCounter = 0 ;

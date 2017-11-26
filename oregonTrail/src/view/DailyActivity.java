@@ -8,7 +8,10 @@ package view;
 import control.GamePlay;
 import control.MapControl;
 import control.TrailStop;
+import exceptions.DailyHealthException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import model.Actor;
 import model.Oxen;
@@ -17,7 +20,6 @@ import model.Player;
 import model.Supply;
 import model.SupplyType;
 import model.Wagon;
-
 
 /**
  *
@@ -55,7 +57,15 @@ public class DailyActivity extends View {
             case "c":
                 continueJourney();
                 result = true;
-                gamePlay.setDailyHealth(_party);
+                 {
+                    try {
+                        gamePlay.setDailyHealth(_party);
+                    } catch (DailyHealthException ex) {
+                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Major Error Found in setDailyHealth");
+                        break;
+                    }
+                }
                 break;
             case "h":
                 HelpMenu helpMenu = new HelpMenu(_party);
@@ -69,15 +79,36 @@ public class DailyActivity extends View {
                 break;
             case "r":
                 restForDay();
-                gamePlay.setDailyHealth(_party);
+                 {
+                    try {
+                        gamePlay.setDailyHealth(_party);
+                    } catch (DailyHealthException ex) {
+                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Major Error Found in setDailyHealth");
+                    }
+                }
                 break;
             case "s":
                 goHunting();
-                gamePlay.setDailyHealth(_party);
+                 {
+                    try {
+                        gamePlay.setDailyHealth(_party);
+                    } catch (DailyHealthException ex) {
+                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Major Error Found in setDailyHealth");
+                    }
+                }
                 break;
             case "g":
                 gatherFood();
-                gamePlay.setDailyHealth(_party);
+                 {
+                    try {
+                        gamePlay.setDailyHealth(_party);
+                    } catch (DailyHealthException ex) {
+                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Major Error Found in setDailyHealth");
+                    }
+                }
                 break;
             case "i":
                 partyStatus();
