@@ -7,10 +7,12 @@ package control;
 
 import exceptions.DailyHealthException;
 import exceptions.GamePlayException;
+import exceptions.PrintingException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import model.Actor;
 import model.Party;
@@ -113,8 +115,33 @@ public class GamePlay implements Serializable {
             player = (Player) input.readObject();
         } catch (Exception e) {
             throw new GamePlayException(e.getMessage());
-        } 
+        }
         DailyActivity dailyActivity = new DailyActivity(player);
         dailyActivity.display();
+    }
+
+    public static boolean printPartyHealthReport(Party party, String filepath) throws PrintingException {
+        try {
+            PrintWriter pw = new PrintWriter(filepath);
+            pw.println("        ACTORS AND ATTRIBUTES       ");
+            pw.println("**************************************************");
+            pw.println("Name            Health  Stamina Hunting Gathering");
+            pw.println("**************************************************");
+            for (Actor actor : party.getPartyMembers()) {
+                String dataSection = actor.getHealth() +
+                        "       " +  actor.getStamina() +
+                        "       " +  actor.getHuntingSkill() +
+                        "       " +  actor.getGatheringSkill();
+                String row = actor.getName();
+                for(int i = actor.getName().length() - 1; i < 16; i++) {
+                    row+= " ";
+                }
+                pw.println(row + dataSection);
+            }
+            pw.close();
+            return true;
+        } catch (Exception e) {
+            throw new PrintingException("Unable to print Party Health to " + filepath);
+        }
     }
 }

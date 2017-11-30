@@ -22,6 +22,7 @@ public class HelpMenu extends View {
                 + "\nD: See help items for daily travel"
                 + "\nT: See help items when you are at a Town or Fort"
                 + "\nH: See what items affect your health"
+                + "\nP: Print your parties health and stats"
                 + "\nQ: Return to previous menu"
                 + "\n");
         _party = party;
@@ -64,6 +65,18 @@ public class HelpMenu extends View {
                     + "\n Right now your average party health is " + gamePlay.calculateAverageStrength(_party)
                     + "\n ** PRESS Q to return to your game."
             );
+        } else if (input.toLowerCase().equals("p")) {
+            this.console.println("\n \nEnter the file path where the report is to be saved: ");
+        String filePath = this.getPlayerFeedback();
+        try {
+            boolean success = gamePlay.printPartyHealthReport(_party, filePath);
+            if (success) {
+                this.console.println("The report was successfully printed to '" + filePath + "'");
+                waitForEnterKey();
+            }
+        } catch (Exception ex) {
+            ErrorView.display("HelpMenu", ex.getMessage());
+        }
         }
         return false;
     }
