@@ -5,9 +5,15 @@
  */
 package view;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import oregontrail.OregonTrail;
 
 /**
  *
@@ -16,6 +22,8 @@ import java.util.Scanner;
 public abstract class View implements ViewInterface {
 
     protected String menu;
+    protected final BufferedReader keyboard = OregonTrail.getInFile();
+    protected final PrintWriter console = OregonTrail.getOutFile();
 
     public View() {
 
@@ -29,7 +37,7 @@ public abstract class View implements ViewInterface {
     public void display() {
         boolean done = false;
         do {
-            System.out.println(this.menu);
+            this.console.println(this.menu);
             String input = getMenuFeedback();
             if (input.toLowerCase().equals("q")) {
                 return;
@@ -47,7 +55,7 @@ public abstract class View implements ViewInterface {
             try {
                 number = Integer.parseInt(input);
             } catch (NumberFormatException nfe) {
-                System.out.println("You must enter a valid number");
+                this.console.println("You must enter a valid number");
                 waitForEnterKey();
             }
         }
@@ -63,7 +71,7 @@ public abstract class View implements ViewInterface {
             try {
                 number = Double.parseDouble(input);
             } catch (NumberFormatException nfe) {
-                System.out.println("You must enter a valid number");
+                this.console.println("You must enter a valid number");
                 waitForEnterKey();
             }
         }
@@ -71,21 +79,27 @@ public abstract class View implements ViewInterface {
         return number;
     }
 
-    public static String getMenuFeedback() {
-        Scanner scanner = new Scanner(System.in);
+    public String getMenuFeedback() {
+
         String input = "";
         boolean valid = false;
 
         while (!valid) {
-            input = scanner.nextLine();
+            try {
+                input = this.keyboard.readLine();
+            } catch (IOException ex) {
+                ErrorView.display(this.getClass().getName(), "ERROR READING INPUT " + ex.getMessage());
+                return null;
+
+            }
             input = input.trim();
 
             if (input.length() < 1) {
-                System.out.println("\nInvalid input: input cannot be blank");
+                this.console.println("\nInvalid input: input cannot be blank");
                 continue;
             }
             if (input.length() > 1) {
-                System.out.println("\nInvalid input: input cannot be more than 1 character");
+                this.console.println("\nInvalid input: input cannot be more than 1 character");
                 continue;
             }
 
@@ -95,17 +109,22 @@ public abstract class View implements ViewInterface {
         return input.toLowerCase();
     }
 
-    public static String getPlayerFeedback() {
-        Scanner scanner = new Scanner(System.in);
+    public String getPlayerFeedback() {
+        
         String input = "";
         boolean valid = false;
 
         while (!valid) {
-            input = scanner.nextLine();
+            try {
+                input = this.keyboard.readLine();
+            } catch (IOException ex) {
+                 ErrorView.display(this.getClass().getName(), "ERROR READING INPUT " + ex.getMessage());
+                return null;
+            }
             input = input.trim();
 
             if (input.length() < 1) {
-                System.out.println("\nInvalid input: input cannot be blank");
+                this.console.println("\nInvalid input: input cannot be blank");
                 continue;
             }
 
@@ -115,9 +134,10 @@ public abstract class View implements ViewInterface {
         return input;
     }
 
-    public static void waitForEnterKey() {
-        System.out.println("\nPress the Enter key to continue...");
+    public void waitForEnterKey() {
+        this.console.println("\nPress the Enter key to continue...");
         try {
+            // Just waiting for a key input to continue MJ
             System.in.read();
         } catch (Exception e) {
         }

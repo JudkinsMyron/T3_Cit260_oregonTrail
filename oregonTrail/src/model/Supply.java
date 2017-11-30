@@ -4,13 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Dan Ortega
  */
-public class Supply {
+public class Supply implements Serializable {
     
     private SupplyType type;
     private double amount;

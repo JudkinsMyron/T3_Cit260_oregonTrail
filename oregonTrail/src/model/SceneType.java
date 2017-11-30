@@ -10,12 +10,12 @@ package model;
  * @author Kevin's Account
  */
 public enum SceneType {
-    FORT("Passing a Fort"),
-    TOWN ("Passing a Town"),
-    TRAIL ("Daily Trail"),
-    RIVER ("Cross a River"),
-    OREGON ("You Made It");
-        private String type;
+    FORT("Fort"),
+    TOWN ("Town"),
+    TRAIL ("Trail"),
+    RIVER ("River"),
+    OREGON ("Oregon");
+        public String type;
     
     private SceneType(String type) {
         this.type = type;

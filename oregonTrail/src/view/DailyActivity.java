@@ -7,6 +7,7 @@ package view;
 
 import control.GamePlay;
 import control.MapControl;
+import control.RiverCrossing;
 import control.TrailStop;
 import exceptions.DailyHealthException;
 import java.util.ArrayList;
@@ -26,10 +27,22 @@ import model.Wagon;
  * @author Myron Judkins
  */
 public class DailyActivity extends View {
-
+    private Player _player = null;
     private Party _party = null;
+    
+    public Player getPlayer() {
+        return _player;
+    }
 
-    public DailyActivity(Party party) {
+    public void setParty(Party party) {
+        _party = party;
+    }
+
+    public Party getParty() {
+        return _party;
+    }
+
+    public DailyActivity(Player player) {
         super("\n-----------------------------------------"
                 + "\n     Daily Menu"
                 + "\n-----------------------------------------"
@@ -45,8 +58,10 @@ public class DailyActivity extends View {
                 + "\nG: Gather Food"
                 + "\nI: Inventory and Health"
                 + "\nM: View Map"
+                + "\nT: Save the Game"
                 + "\nQ: Quit Game");
-        _party = party;
+        _party = player.getParty();
+        _player = player;
     }
 
     @Override
@@ -55,14 +70,16 @@ public class DailyActivity extends View {
         GamePlay gamePlay = new GamePlay();
         switch (menuOption.toLowerCase()) {
             case "c":
-                continueJourney();
-                result = true;
+                result = continueJourney();
+                
                  {
                     try {
-                        gamePlay.setDailyHealth(_party);
+                        String dailyHealthMessage = gamePlay.setDailyHealth(_party);
+                        this.console.println(dailyHealthMessage);
+                        waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("Major Error Found in setDailyHealth");
+                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        this.console.println("Major Error Found in setDailyHealth");
                         break;
                     }
                 }
@@ -81,10 +98,12 @@ public class DailyActivity extends View {
                 restForDay();
                  {
                     try {
-                        gamePlay.setDailyHealth(_party);
+                        String dailyHealthMessage = gamePlay.setDailyHealth(_party);
+                        this.console.println(dailyHealthMessage);
+                        waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("Major Error Found in setDailyHealth");
+                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        this.console.println("Major Error Found in setDailyHealth");
                     }
                 }
                 break;
@@ -92,10 +111,12 @@ public class DailyActivity extends View {
                 goHunting();
                  {
                     try {
-                        gamePlay.setDailyHealth(_party);
+                        String dailyHealthMessage = gamePlay.setDailyHealth(_party);
+                        this.console.println(dailyHealthMessage);
+                        waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("Major Error Found in setDailyHealth");
+                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        this.console.println("Major Error Found in setDailyHealth");
                     }
                 }
                 break;
@@ -103,10 +124,12 @@ public class DailyActivity extends View {
                 gatherFood();
                  {
                     try {
-                        gamePlay.setDailyHealth(_party);
+                        String dailyHealthMessage = gamePlay.setDailyHealth(_party);
+                        this.console.println(dailyHealthMessage);
+                        waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        Logger.getLogger(DailyActivity.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("Major Error Found in setDailyHealth");
+                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        this.console.println("Major Error Found in setDailyHealth");
                     }
                 }
                 break;
@@ -116,16 +139,46 @@ public class DailyActivity extends View {
             case "m":
                 viewMap();
                 break;
+            case "t":
+                saveGame();
+                break;
             default:
-                System.out.println("'" + menuOption + "' is not a menu option");
+                this.console.println("'" + menuOption + "' is not a menu option");
                 break;
         }
 
         return result;
     }
 
-    private void continueJourney() {
+    private boolean continueJourney() {
+        MapControl mapControl = new MapControl();
+        boolean endGame = false;
+        switch(mapControl.getNextSceneType(_party)){
+            case FORT:
+                FortMenu fortMenu = new FortMenu(_party);
+                fortMenu.display();
+                break;
+            case RIVER:
+                RiverCrossing rc = new RiverCrossing();
+                RiverCrossingMenu rcm = new RiverCrossingMenu(_party,rc);
+                rcm.display();
+                break;    
+            case TRAIL:
+                this.console.println("You have spent an uneventful day of travel");
+                waitForEnterKey();
+                break; 
+             case TOWN:
+                this.console.println("You passed a town but found no services that you need");
+                waitForEnterKey();
+                break; 
+             case OREGON:
+                this.console.println("You can rest, you are here!");
+                waitForEnterKey();
+                endGame = true;
+                break;    
+        }
         _party.setMapPositions(_party.getMapPositions() + 1);
+        return endGame;
     }
 
     private void changePace() {
@@ -143,12 +196,22 @@ public class DailyActivity extends View {
 
     private void goHunting() {
         TrailStop trailStop = new TrailStop();
-        trailStop.goHunting(_party);
+        try {
+            String message = trailStop.goHunting(_party);
+            this.console.println(message);
+        } catch (Exception e) {
+            ErrorView.display(this.getClass().getName(), e.getMessage());
+        }
     }
 
     private void gatherFood() {
         TrailStop trailStop = new TrailStop();
-        trailStop.lookForPlants(_party);
+        try {
+            String message = trailStop.lookForPlants(_party);
+            this.console.println(message);
+        } catch (Exception e) {
+            ErrorView.display(this.getClass().getName(), e.getMessage());
+        }
     }
 
     private void partyStatus() {
@@ -156,10 +219,17 @@ public class DailyActivity extends View {
     }
 
     private void viewMap() {
-        MapControl mapControl = new MapControl();
+        Map map = new Map(_party);
+    }
 
-        mapControl.printMap(_party);
-        waitForEnterKey();
+    private void saveGame() {
+        this.console.println("\n \n Enter the file path where the game is to be saved: ");
+        String filePath = this.getPlayerFeedback();
+        try {
+            GamePlay.saveGame(getPlayer(), filePath);
+        } catch (Exception ex) {
+            ErrorView.display("DailyActivity", ex.getMessage());
+        }
     }
 
 }

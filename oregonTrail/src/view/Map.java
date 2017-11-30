@@ -17,18 +17,27 @@ public class Map extends View {
     private Party _party = null;
 
     Map(Party party) {
-        super(
-        );
+        super();
         _party = party;
-        MapControl mapControl = new MapControl();
-        
-        mapControl.printMap(party);
+
+        printMap(party);
         waitForEnterKey();
     }
 
     @Override
     public boolean doAction(String input) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
+    private void printMap(Party party) {
+        MapControl mapControl = new MapControl();
+        String currentMap = mapControl.getMapString().substring(0, party.getMapPositions() + 5) + "X" + mapControl.getMapString().substring(party.getMapPositions() + 6, mapControl.getMapString().length());
+
+        this.console.println("\n***************************************************"
+                + "\n* This is your aproximate position on the trail   *"
+                + "\n***************************************************"
+                + "\n" 
+                + "\n" + currentMap);
+
+    }
 }

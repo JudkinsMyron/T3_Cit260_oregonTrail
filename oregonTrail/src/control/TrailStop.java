@@ -52,21 +52,25 @@ public class TrailStop {
         return success;
     }
 
-    public void goHunting(Party party) {
+    public String goHunting(Party party) throws TrailStopException {
         boolean success = false;
         try {
             success = calcHuntingSuccess(party);
         } catch (TrailStopException tse) {
-            System.out.println(tse.getMessage());
+            throw tse;
         }
-
+        String message = "";
         if (success) {
-            adjustSuppliesFromSuccess(party);
+            message = adjustSuppliesFromSuccess(party);
         }
+        return message;
+
     }
 
-    private void adjustSuppliesFromSuccess(Party party) {
+    private String adjustSuppliesFromSuccess(Party party) throws TrailStopException {
         double foodToAdd = ThreadLocalRandom.current().nextDouble(1, 20);
+        String message = "";
+
         for (Supply supply : party.getWagon().getSupplies()) {
             if (supply.getType() == SupplyType.FOOD) {
                 double currentSupplyAmount = supply.getAmount();
@@ -79,33 +83,34 @@ public class TrailStop {
                             foodToAdd);
 
                 } catch (TrailStopException tse) {
-                    System.out.println(tse.getMessage());
+                    throw tse;
                 }
 
                 if (weightCheckResult) {
                     supply.setAmount(adjustedSupplyAmount);
-                    System.out.println("You were successful! You now have " + supply.getAmount() + " " + supply.getType());
-                    View.waitForEnterKey();
+                    message = "You were successful! You now have " + supply.getAmount() + " " + supply.getType();
                 } else {
-                    System.out.println("You found food, but were unable to store it anywhere");
-                    View.waitForEnterKey();
+                    message = "You found food, but were unable to store it anywhere";
                 }
+
             }
         }
+        return message;
     }
 
-    public boolean lookForPlants(Party party) {
+    public String lookForPlants(Party party) throws TrailStopException {
         boolean success = false;
         try {
             success = calcGatheringSuccess(party);
         } catch (TrailStopException tse) {
-            System.out.println(tse.getMessage());
+            throw tse;
         }
 
+        String message = "";
         if (success) {
-            adjustSuppliesFromSuccess(party);
+            message = adjustSuppliesFromSuccess(party);
         }
-        return success;
+        return message;
     }
 
     private boolean weightCheck(double carryingWeight, double wagonWeight, SupplyType supplyType, double supplyAmountChange) throws TrailStopException {

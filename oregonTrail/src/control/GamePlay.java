@@ -6,17 +6,22 @@
 package control;
 
 import exceptions.DailyHealthException;
+import exceptions.GamePlayException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import model.Actor;
 import model.Party;
-import static view.View.waitForEnterKey;
+import model.Player;
+import view.DailyActivity;
 
 
 /*import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;*/
-
 /**
  *
  * @author Myron Judkins
@@ -32,7 +37,7 @@ public class GamePlay implements Serializable {
         //I have yet to be sure where to get these variables
 
         if (actorStamina <= 0 || actorStamina > 100) {
-           throw new DailyHealthException("Actor Stamina is out of range");
+            throw new DailyHealthException("Actor Stamina is out of range");
         }
         if (actorHealth <= 0 || actorHealth > 100) {
             throw new DailyHealthException("Actor Health is out of range");
@@ -73,51 +78,43 @@ public class GamePlay implements Serializable {
         return totalHealth / party.getPartyMembers().size();
     }
 
-    public void setDailyHealth(Party party) throws DailyHealthException {
+    public String setDailyHealth(Party party) throws DailyHealthException {
         GamePlay gamePlay = new GamePlay();
-        double averageHealth = 0 ;
-       int partyMemberCounter = 0 ;
-        System.out.println("Your Health and food has been updated for Today");
+        double averageHealth = 0;
+        int partyMemberCounter = 0;
+        String message = "Your Health and food has been updated for Today";
         for (Actor actor : party.getPartyMembers()) {
             actor.setHealth((int) gamePlay.calculateDailyHealth(actor.getHealth(), actor.getStamina(), 2.5, 8));
-            System.out.println("Health for " + actor.getName() + " is " + actor.getHealth());
-           averageHealth = averageHealth +  actor.getHealth();
-           if (actor.getHealth() > 0 )
-               partyMemberCounter++ ;
+            message += "\n Health for " + actor.getName() + " is " + actor.getHealth();
+            averageHealth = averageHealth + actor.getHealth();
+            if (actor.getHealth() > 0) {
+                partyMemberCounter++;
+            }
         }
-        System.out.println("The Average Health for party members is " + averageHealth / partyMemberCounter );
-        waitForEnterKey();
+        message += "\n The Average Health for party members is " + (averageHealth / partyMemberCounter);
+        return message;
     }
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//    @Override
-//    public int hashCode() {
-//        int hash = 0;
-//        hash += (id != null ? id.hashCode() : 0);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object object) {
-//        // TODO: Warning - this method won't work in the case the id fields are not set
-//        if (!(object instanceof GamePlay)) {
-//            return false;
-//        }
-//        GamePlay other = (GamePlay) object;
-//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "control.GamePlay[ id=" + id + " ]";
-//    }
+    public static void saveGame(Player player, String filePath)
+            throws GamePlayException {
+        try (FileOutputStream fops = new FileOutputStream(filePath)) {
+            ObjectOutputStream output = new ObjectOutputStream(fops);
+            output.writeObject(player);
+        } catch (Exception e) {
+            throw new GamePlayException(e.getMessage());
+        }
+    }
+
+    public static void loadGame(String filepath)
+            throws GamePlayException {
+        Player player = null;
+        try (FileInputStream fips = new FileInputStream(filepath)) {
+            ObjectInputStream input = new ObjectInputStream(fips);
+            player = (Player) input.readObject();
+        } catch (Exception e) {
+            throw new GamePlayException(e.getMessage());
+        } 
+        DailyActivity dailyActivity = new DailyActivity(player);
+        dailyActivity.display();
+    }
 }

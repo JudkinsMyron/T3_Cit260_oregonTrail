@@ -32,7 +32,7 @@ public class HelpMenu extends View {
     public boolean doAction(String input) {
         GamePlay gamePlay = new GamePlay();
         if (input.toLowerCase().equals("d")) {
-            System.out.println(
+            this.console.println(
                     "\n"
                     + "\n To continue travel you move along at your set pace"
                     + "\n Your Party will move forward, and consume food, and depending"
@@ -45,7 +45,7 @@ public class HelpMenu extends View {
                     + "\n ** PRESS Q to return to your game."
             );
         } else if (input.toLowerCase().equals("t")) {
-            System.out.println(
+            this.console.println(
                     "\n"
                     + "\n When you come to a Town or Fort you have the opportunity "
                     + "\n to purchase needed supplies at the General Store or Trading Post."
@@ -55,7 +55,7 @@ public class HelpMenu extends View {
                     + "\n ** PRESS Q to return to your game."
             );
         } else if (input.toLowerCase().equals("h")) {
-            System.out.println(
+            this.console.println(
                     "\n"
                     + "\n People with higher Stamina recover more quickly, but require "
                     + "\n more food to stay healthy. As you eat more and travel less you"

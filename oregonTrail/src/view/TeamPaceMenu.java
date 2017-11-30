@@ -42,7 +42,7 @@ class TeamPaceMenu extends View {
                 _party.setPace(PaceSpeed.SLOW);
                 break;
         }
-        System.out.println("Your team pace is now " + getPaceString(_party));
+        this.console.println("Your team pace is now " + getPaceString(_party));
         waitForEnterKey();
         return false;
     }

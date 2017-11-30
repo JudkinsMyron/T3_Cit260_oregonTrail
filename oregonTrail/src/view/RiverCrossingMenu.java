@@ -58,7 +58,7 @@ public class RiverCrossingMenu extends View {
                 dropSupplies(_riverCrossing);
                 break;
             case "g":
-                System.out.println("You go back to camp and wait");
+                this.console.println("You go back to camp and wait");
                 _riverCrossing.setRiverDepth(0);
                 break;
         }
@@ -70,16 +70,16 @@ public class RiverCrossingMenu extends View {
         try {
             result = riverCrossing.calculateRiverCrossSuccess(_party.getWagon().getWagonWeight(), _party.calcOxenStrength());
         } catch (RiverCrossingException rce) {
-            System.out.println(rce.getMessage());
+            ErrorView.display(this.getClass().getName(),rce.getMessage());
         }
         boolean success = false;
         switch (result) {
 
             case 0:
-                System.out.println("You didn't cross the river successfully!");
+                this.console.println("You didn't cross the river successfully!");
                 break;
             case 1:
-                System.out.println("You made it across the river safely");
+                this.console.println("You made it across the river safely");
                 success = true;
                 break;
 
@@ -95,7 +95,7 @@ public class RiverCrossingMenu extends View {
         double amountToDrop = 0;
         double currentAmount = 0;
         while (!validInput) {
-            System.out.println(
+            this.console.println(
                     "\n"
                     + "\nWhat type of supplies would you like to drop?"
                     + "\n"
@@ -111,7 +111,7 @@ public class RiverCrossingMenu extends View {
                 supplyType = SupplyType.FOOD;
                 validInput = true;
             } else {
-                System.out.println("That was not a valid input");
+                this.console.println("That was not a valid input");
             }
 
         };
@@ -122,7 +122,7 @@ public class RiverCrossingMenu extends View {
             }
         }
 
-        System.out.println(
+        this.console.println(
                 "\n"
                 + "\nYou currently have " + currentAmount + " " + supplyType
                 + "\n"
@@ -134,16 +134,16 @@ public class RiverCrossingMenu extends View {
         int intChecker = (int) result;
         switch (intChecker) {
             case -1:
-                System.out.println("No supply of that type found");
+                this.console.println("No supply of that type found");
                 break;
             case -2:
-                System.out.println("You don't have that much to drop");
+                this.console.println("You don't have that much to drop");
                 break;
             case -3:
-                System.out.println("You can't drop a negative amount of supplies, nice try");
+                this.console.println("You can't drop a negative amount of supplies, nice try");
                 break;
             default:
-                System.out.println("\n" + "\nYou dropped " + amountToDrop + " of "
+                this.console.println("\n" + "\nYou dropped " + amountToDrop + " of "
                         + supplyType + " and now have " + result + " remaining");
                 break;
         }

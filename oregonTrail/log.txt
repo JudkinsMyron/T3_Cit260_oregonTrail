@@ -1,0 +1,1 @@
+view.DailyActivity - Food Eaten today is too high

@@ -15,8 +15,12 @@ import model.SceneType;
  */
 public class MapControl {
 
-    private String mapString = "Start--------------------Oregon";
+    private final String mapString = "Start--------------------Oregon";
     private ArrayList<SceneType> sceneTypeList = new ArrayList<SceneType>();
+
+    public String getMapString() {
+        return mapString;
+    }
 
     public void fillSceneTypeList() {
         sceneTypeList.add(SceneType.FORT);
@@ -42,17 +46,8 @@ public class MapControl {
 
     }
 
-    public void printMap(Party party) {
-        String currentMap = mapString.substring(0, party.getMapPositions() + 5) + "X" + mapString.substring(party.getMapPositions() + 6, mapString.length());
-        
-        System.out.println("\n***************************************************"
-                + "\n* This is your aproximate position on the trail   *"
-                + "\n***************************************************"
-                + "\n" + "\n" + currentMap);
-
-    }
-
     public SceneType getNextSceneType(Party party) {
+        fillSceneTypeList();
         return sceneTypeList.get(party.getMapPositions());
     }
 }
