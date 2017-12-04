@@ -14,9 +14,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.ArrayList;
 import model.Actor;
 import model.Party;
 import model.Player;
+import model.Supply;
 import view.DailyActivity;
 
 
@@ -138,10 +140,36 @@ public class GamePlay implements Serializable {
                 }
                 pw.println(row + dataSection);
             }
-            pw.close();
+            pw.flush();
             return true;
         } catch (Exception e) {
             throw new PrintingException("Unable to print Party Health to " + filepath);
         }
     }
+    public static boolean printInventory(ArrayList<Supply> supplies, String filepath) throws PrintingException {
+        try {
+            PrintWriter pm = new PrintWriter(filepath);
+            pm.println("       Inventory on the Wagon       ");
+            pm.println("**************************************************");
+            pm.println("Item            Amount on hand");
+            pm.println("**************************************************");
+            for (Supply supply : supplies) {
+                String stringAmount = Double.toString(supply.getAmount()) ;
+                String row = supply.getType().toString();
+                
+                for(int i = supply.getType().toString().length() - 1; i < 16; i++) {
+                    row+= " ";
+                }
+                pm.println(row + stringAmount);
+            }
+            pm.flush();
+            return true;
+        } catch (Exception e) {
+            throw new PrintingException("Unable to print Inventory to " + filepath);
+        }
+    }
+
+
 }
+
+

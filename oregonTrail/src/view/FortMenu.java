@@ -19,10 +19,10 @@ public class FortMenu extends View {
 
         super("\n********************************"
                 + "\n*                              *"
-                + "\n*     As you move away from    *"
-                + "\n*     the River you notice a   *"
+                + "\n*     As you Travel            *"
+                + "\n*     you notice a             *"
                 + "\n*     FORT with a sign that    *"
-                + "\n*     reads GENERAL STORE       *"
+                + "\n*     reads GENERAL STORE      *"
                 + "\n*                              *"
                 + "\n********************************"
                 + "\n*                                        *"

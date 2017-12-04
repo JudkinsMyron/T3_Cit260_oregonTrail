@@ -23,6 +23,6 @@ public class ErrorView {
                 + "\n " + className + "- ERROR - " + errorMessage
                 + "\n--------------------------------------------------------");
         logFile.println(className + " - " + errorMessage);
-        logFile.close();
+        logFile.flush();
     }
 }

@@ -31,21 +31,61 @@ public class Party implements Serializable {
         margret.setName("Mary");
         // fill party with actors
         partyMembers.add(myron);
+            myron.setHuntingSkill(25);
+            myron.setGatheringSkill(15);
+            myron.setMoney(600);
+            myron.setStamina(90);
+            myron.setHealth(60);
         partyMembers.add(mary);
+            mary.setHuntingSkill(15);
+            mary.setGatheringSkill(25);
+            mary.setMoney(750);
+            mary.setStamina(75);
+            mary.setHealth(70);
         partyMembers.add(kevin);
+            kevin.setHuntingSkill(20);
+            kevin.setGatheringSkill(20);
+            kevin.setMoney(700);
+            kevin.setStamina(90);
+            kevin.setHealth(80);
         partyMembers.add(bethany);
+            bethany.setHuntingSkill(20);
+            bethany.setGatheringSkill(30);
+            bethany.setMoney(650);
+            bethany.setStamina(70);
+            bethany.setHealth(80);
         partyMembers.add(margret);
+            margret.setHuntingSkill(25);
+            margret.setGatheringSkill(15);
+            margret.setMoney(700);
+            margret.setStamina(90);
+            margret.setHealth(80);
         partyMembers.add(dan);
+            dan.setHuntingSkill(15);
+            dan.setGatheringSkill(10);
+            dan.setMoney(400);
+            dan.setStamina(40);
+            dan.setHealth(50);
         partyMembers.add(ricardo);
+            ricardo.setHuntingSkill(20);
+            ricardo.setGatheringSkill(25);
+            ricardo.setMoney(700);
+            ricardo.setStamina(70);
+            ricardo.setHealth(70);
         partyMembers.add(steve);
+            steve.setHuntingSkill(10);
+            steve.setGatheringSkill(15);
+            steve.setMoney(700);
+            steve.setStamina(750);
+            steve.setHealth(80);
         // set values
-        for (Actor actor : partyMembers) {
-            actor.setHuntingSkill(25);
-            actor.setGatheringSkill(15);
-            actor.setMoney(700);
-            actor.setStamina(80);
-            actor.setHealth(80);
-        }
+//        for (Actor actor : partyMembers) {
+//            actor.setHuntingSkill(25);
+//            actor.setGatheringSkill(15);
+//            actor.setMoney(700);
+//            actor.setStamina(80);
+//            actor.setHealth(80);
+//        }
         
         return partyMembers;
     }

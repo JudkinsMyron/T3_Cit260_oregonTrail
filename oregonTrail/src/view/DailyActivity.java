@@ -215,7 +215,17 @@ public class DailyActivity extends View {
     }
 
     private void partyStatus() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                   this.console.println("\n  Print an inventory list to a file"
+                    + "\n Enter the file path where the inventory is to be saved: ");
+        String filePath = this.getPlayerFeedback();
+        try {
+            GamePlay.printInventory(_party.getWagon().getSupplies(), filePath);
+            this.console.println("\n  File Created Successfully ");
+            waitForEnterKey();
+        } catch (Exception ex) {
+            ErrorView.display("DailyActivity Printing Inventory", ex.getMessage());
+        }
+    
     }
 
     private void viewMap() {
