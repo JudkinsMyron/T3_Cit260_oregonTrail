@@ -36,8 +36,8 @@ public class FortMenu extends View {
     @Override
     public boolean doAction(String input) {
         if (input.toLowerCase().equals("g")) {
-            //       GeneralStore generalStore = new GeneralStore();
-            // Havent greated General Store class yet (MJ)
+            GeneralStoreMenu generalStore = new GeneralStoreMenu(_party);
+            generalStore.display();
         }
         return false;
     }
