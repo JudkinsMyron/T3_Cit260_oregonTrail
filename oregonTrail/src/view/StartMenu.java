@@ -10,6 +10,7 @@ import control.RiverCrossing;
 import control.StartController;
 import java.util.ArrayList;
 import model.Actor;
+import model.FoodRation;
 import model.Oxen;
 import model.PaceSpeed;
 import model.Party;
@@ -110,6 +111,7 @@ public class StartMenu extends View {
 
         //set pace
         party.setPace(PaceSpeed.MEDIUM);
+        party.setRation(FoodRation.MEDIUM);
         party.setDistanceTraveled(0);
         player.setParty(party);
         return player;

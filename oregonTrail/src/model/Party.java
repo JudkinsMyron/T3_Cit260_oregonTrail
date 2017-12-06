@@ -97,7 +97,8 @@ public class Party implements Serializable {
     private ArrayList<Oxen> oxen;
     private int distanceTraveled;
     private PaceSpeed pace;
-
+    private FoodRation ration;
+    
     public Party() {
     }
 
@@ -164,7 +165,13 @@ public class Party implements Serializable {
     public void setPace(PaceSpeed speed) {
         this.pace = speed;
     }
+     public FoodRation getRation() {
+        return ration;
+    }
 
+    public void setRation(FoodRation ration) {
+        this.ration = ration;
+    }
     @Override
     public int hashCode() {
         int hash = 3;
@@ -174,7 +181,7 @@ public class Party implements Serializable {
         hash = 59 * hash + this.mapPositions;
         hash = 59 * hash + Objects.hashCode(this.oxen);
         hash = 59 * hash + this.distanceTraveled;
-        hash = 59 * hash + this.pace.getValue();
+        hash = 59 * hash + (int)this.pace.getValue();
         return hash;
     }
 

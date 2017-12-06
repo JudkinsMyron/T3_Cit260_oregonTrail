@@ -36,23 +36,15 @@ public class GeneralStoreMenu extends View {
     @Override
     public boolean doAction(String input) {
         if (input.toLowerCase().equals("b")) {
-            buySupplies();
+            BuySuppliesMenu bsm = new BuySuppliesMenu(_party);
+            bsm.display();
         } else if (input.toLowerCase().equals("s")) {
-            sellSupplies();
+            SellSuppliesMenu ssm = new SellSuppliesMenu(_party);
+            ssm.display();
         }
         return false;
     }
 
-    private void sellSupplies() {
-        this.console.println("\n********************************"
-                + "\n* What would you like to buy?  *"
-                + "\n********************************"
-                + "\n*                              *"
-                + "\n* Enter F to buy food          *"
-                + "\n* Enter W to buy wagon wheels  *"
-                + "\n* Enter Q to go back           *"
-                + "\n"
-                + "\n");
-    }
+    
 
 }

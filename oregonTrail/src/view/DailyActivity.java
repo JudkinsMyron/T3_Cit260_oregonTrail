@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import model.Actor;
 import model.Oxen;
+import model.PaceSpeed;
 import model.Party;
 import model.Player;
 import model.Supply;
@@ -27,9 +28,10 @@ import model.Wagon;
  * @author Myron Judkins
  */
 public class DailyActivity extends View {
+
     private Player _player = null;
     private Party _party = null;
-    
+
     public Player getPlayer() {
         return _player;
     }
@@ -71,14 +73,14 @@ public class DailyActivity extends View {
         switch (menuOption.toLowerCase()) {
             case "c":
                 result = continueJourney();
-                
+
                  {
                     try {
                         String dailyHealthMessage = gamePlay.setDailyHealth(_party);
                         this.console.println(dailyHealthMessage);
                         waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        ErrorView.display(this.getClass().getName(), ex.getMessage());
                         this.console.println("Major Error Found in setDailyHealth");
                         break;
                     }
@@ -95,16 +97,19 @@ public class DailyActivity extends View {
                 changeFoodRation();
                 break;
             case "r":
-                restForDay();
                  {
                     try {
+                        PaceSpeed prior = _party.getPace();
+                        _party.setPace(PaceSpeed.REST);
                         String dailyHealthMessage = gamePlay.setDailyHealth(_party);
                         this.console.println(dailyHealthMessage);
+                        _party.setPace(prior);
                         waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        ErrorView.display(this.getClass().getName(), ex.getMessage());
                         this.console.println("Major Error Found in setDailyHealth");
                     }
+
                 }
                 break;
             case "s":
@@ -115,7 +120,7 @@ public class DailyActivity extends View {
                         this.console.println(dailyHealthMessage);
                         waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        ErrorView.display(this.getClass().getName(), ex.getMessage());
                         this.console.println("Major Error Found in setDailyHealth");
                     }
                 }
@@ -128,7 +133,7 @@ public class DailyActivity extends View {
                         this.console.println(dailyHealthMessage);
                         waitForEnterKey();
                     } catch (DailyHealthException ex) {
-                        ErrorView.display(this.getClass().getName(),ex.getMessage());
+                        ErrorView.display(this.getClass().getName(), ex.getMessage());
                         this.console.println("Major Error Found in setDailyHealth");
                     }
                 }
@@ -153,29 +158,29 @@ public class DailyActivity extends View {
     private boolean continueJourney() {
         MapControl mapControl = new MapControl();
         boolean endGame = false;
-        switch(mapControl.getNextSceneType(_party)){
+        switch (mapControl.getNextSceneType(_party)) {
             case FORT:
                 FortMenu fortMenu = new FortMenu(_party);
                 fortMenu.display();
                 break;
             case RIVER:
                 RiverCrossing rc = new RiverCrossing();
-                RiverCrossingMenu rcm = new RiverCrossingMenu(_party,rc);
+                RiverCrossingMenu rcm = new RiverCrossingMenu(_party, rc);
                 rcm.display();
-                break;    
+                break;
             case TRAIL:
                 this.console.println("You have spent an uneventful day of travel");
                 waitForEnterKey();
-                break; 
-             case TOWN:
+                break;
+            case TOWN:
                 this.console.println("You passed a town but found no services that you need");
                 waitForEnterKey();
-                break; 
-             case OREGON:
+                break;
+            case OREGON:
                 this.console.println("You can rest, you are here!");
                 waitForEnterKey();
                 endGame = true;
-                break;    
+                break;
         }
         _party.setMapPositions(_party.getMapPositions() + 1);
         return endGame;
@@ -187,11 +192,8 @@ public class DailyActivity extends View {
     }
 
     private void changeFoodRation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void restForDay() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FoodRationMenu rat = new FoodRationMenu(_party);
+        rat.display();
     }
 
     private void goHunting() {
@@ -215,8 +217,8 @@ public class DailyActivity extends View {
     }
 
     private void partyStatus() {
-                   this.console.println("\n  Print an inventory list to a file"
-                    + "\n Enter the file path where the inventory is to be saved: ");
+        this.console.println("\n  Print an inventory list to a file"
+                + "\n Enter the file path where the inventory is to be saved: ");
         String filePath = this.getPlayerFeedback();
         try {
             GamePlay.printInventory(_party.getWagon().getSupplies(), filePath);
@@ -225,7 +227,7 @@ public class DailyActivity extends View {
         } catch (Exception ex) {
             ErrorView.display("DailyActivity Printing Inventory", ex.getMessage());
         }
-    
+
     }
 
     private void viewMap() {

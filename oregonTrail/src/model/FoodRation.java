@@ -9,19 +9,18 @@ package model;
  *
  * @author Kevin's Account
  */
-public enum PaceSpeed {
-    FAST(12),
-    MEDIUM(8),
-    SLOW(4),
-    REST(0);
+public enum FoodRation {
+    LARGE(5),
+    MEDIUM(3),
+    SMALL(1);
     
-    private double pace;
+    private double ration;
     
-    private PaceSpeed(double speed) {
-        this.pace = speed;
+    private FoodRation(double portion) {
+        this.ration = portion;
     }
     
     public double getValue() {
-        return pace;
+        return ration;
     }
 }

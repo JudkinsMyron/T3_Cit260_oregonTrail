@@ -88,7 +88,7 @@ public class GamePlay implements Serializable {
         int partyMemberCounter = 0;
         String message = "Your Health and food has been updated for Today";
         for (Actor actor : party.getPartyMembers()) {
-            actor.setHealth((int) gamePlay.calculateDailyHealth(actor.getHealth(), actor.getStamina(), 2.5, 8));
+            actor.setHealth((int) gamePlay.calculateDailyHealth(actor.getHealth(), actor.getStamina(), party.getRation().getValue(), party.getPace().getValue()));
             message += "\n Health for " + actor.getName() + " is " + actor.getHealth();
             averageHealth = averageHealth + actor.getHealth();
             if (actor.getHealth() > 0) {
